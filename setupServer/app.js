@@ -1,6 +1,7 @@
 var express = require("express")
 var wifi = require("node-wifi")
 var bodyParser = require("body-parser")
+var shell = require("shelljs")
 
 var app = express()
 const PORT = 3000
@@ -23,6 +24,7 @@ app.get('/getwifiinfo', (req, res) => {
 })
 
 app.post('/connect', (req, res) => {
+    shell('/home/pi/iot/dynamicip.sh')
     wifi.connect({ ssid : req.body.ssid, password : req.body.passcode}, (err) => {
         let success = true
         if (err) {
