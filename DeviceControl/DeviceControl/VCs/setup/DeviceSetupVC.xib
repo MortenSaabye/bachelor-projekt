@@ -42,8 +42,20 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sod-fU-V6h">
+                                            <rect key="frame" x="0.0" y="617" width="375" height="30"/>
+                                            <state key="normal" title="Cancel"/>
+                                            <connections>
+                                                <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="lc2-zv-X6V"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="sod-fU-V6h" firstAttribute="leading" secondItem="mWJ-Bu-N9a" secondAttribute="leading" id="Ay5-dF-dOH"/>
+                                        <constraint firstAttribute="bottom" secondItem="sod-fU-V6h" secondAttribute="bottom" id="dgS-db-sau"/>
+                                        <constraint firstAttribute="trailing" secondItem="sod-fU-V6h" secondAttribute="trailing" id="yOP-64-VbR"/>
+                                    </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5y8-YJ-hH4">
                                     <rect key="frame" x="375" y="0.0" width="375" height="647"/>

@@ -8,10 +8,11 @@
 
 import UIKit
 
-class StartVC: UIViewController {
+class StartVC: UIViewController  {
 	let devices = [Device]()
+	@IBOutlet weak var deviceCollectionView: UICollectionView!
 	
-    override func viewDidLoad() {
+	override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Device Control"
         // Do any additional setup after loading the view.
@@ -19,6 +20,7 @@ class StartVC: UIViewController {
         self.navigationItem.rightBarButtonItem = setupBtn
         let allServiceBtn: UIBarButtonItem = UIBarButtonItem(title: "All services", style: .plain, target: self, action: #selector(self.browseAllServices))
         self.navigationItem.leftBarButtonItem = allServiceBtn
+		self.deviceCollectionView.register(UINib(nibName: "DeviceCell", bundle: nil), forCellWithReuseIdentifier: "DEVICE_CELL")
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,6 +38,10 @@ class StartVC: UIViewController {
         self.navigationController?.pushViewController(browseVC, animated: true)
     }
     
+}
+
+extension StartVC: UICollectionViewDataSource, UICollectionViewDelegate {
+	
 }
 
 

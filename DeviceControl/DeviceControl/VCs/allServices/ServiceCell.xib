@@ -13,7 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SERVICE_CELL" rowHeight="81" id="KGk-i7-Jjw" customClass="ServiceCell" customModule="DeviceControl" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SERVICE_CELL" id="KGk-i7-Jjw" customClass="ServiceCell" customModule="DeviceControl" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="411" height="81"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -21,16 +21,15 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YzY-dZ-h1c">
-                        <rect key="frame" x="20" y="21" width="42" height="39"/>
+                        <rect key="frame" x="20" y="30" width="42" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="YzY-dZ-h1c" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="8ZG-tc-n5v"/>
                     <constraint firstItem="YzY-dZ-h1c" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="GnR-sw-x4z"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="YzY-dZ-h1c" secondAttribute="bottom" constant="10" id="qg5-2S-7yz"/>
+                    <constraint firstItem="YzY-dZ-h1c" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aNZ-iw-Dcw"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

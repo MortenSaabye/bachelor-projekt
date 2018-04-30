@@ -15,7 +15,7 @@ protocol WiFiDelegate {
 }
 
 class WiFiManager {
-    let baseURL: String = "http://Mortens-MacBook-Pro-Praktik.local:3000/"
+    let baseURL: String = "http://raspberry.local:3000/"
     var delegate: WiFiDelegate?
     static let shared: WiFiManager = WiFiManager()
     func getAvailableWifi() {
@@ -25,17 +25,18 @@ class WiFiManager {
                 return
             }
             guard let JSONValue = response.result.value as? [String: Any],
-                let networksJSON = JSONValue["resultData"] as? [[String: Any]] else {
+                let networksJSON = JSONValue["resultData"] as? String else {
                 print("Could not get JSON")
                 return
             }
-            var networks: [WiFiNetwork] = [WiFiNetwork]()
-            for network in networksJSON {
-                if let wifiNetwork = WiFiNetwork(dict: network) {
+			let networkStringArray = networksJSON.components(separatedBy: "Cell")
+			var networks: [WiFiNetwork] = [WiFiNetwork]()
+            for network in networkStringArray {
+                if let wifiNetwork = WiFiNetwork(string: network) {
                     networks.append(wifiNetwork)
                 }
             }
-            
+			
             safeSelf.delegate?.didReceiveNetworkInfo(sender: safeSelf, networks: networks)
         }
     }
@@ -69,13 +70,33 @@ struct WiFiNetwork {
     let signalStrength: String
     let isSecured: Bool
     var passcode: String?
-    init?(dict: [String: Any]) {
-        guard let signal = dict["signal_level"] as? String, let ssid = dict["ssid"] as? String, let security = dict["security"] as? String else {
-            print("Deserialization error")
-            return nil
-        }
-        self.signalStrength = signal
-        self.ssid = ssid
-        self.isSecured = security == "none" ? false : true
-    }
+	init?(string: String) {
+		var ssid: String?
+		var signalStrength: String?
+		var isSecured: Bool?
+		let components = string.components(separatedBy: "\n")
+		for component in components {
+			let trimmedComponent = component.trimmingCharacters(in: .whitespacesAndNewlines)
+			if trimmedComponent.hasPrefix("ESSID") {
+				ssid = trimmedComponent.components(separatedBy: ":")[1].trimmingCharacters(in: .punctuationCharacters)
+			}
+			if trimmedComponent.hasPrefix("Quality") {
+				signalStrength = trimmedComponent.components(separatedBy: "=")[2]
+			}
+			if trimmedComponent.hasPrefix("Encryption key") {
+				if trimmedComponent.hasSuffix("on") {
+					isSecured = true
+				} else {
+					isSecured = false
+				}
+			}
+		}
+		if let ssid_ = ssid, let isSecured_ = isSecured, let signalStrength_ = signalStrength {
+			self.ssid = ssid_
+			self.isSecured = isSecured_
+			self.signalStrength = signalStrength_
+		} else {
+			return nil
+		}
+	}
 }

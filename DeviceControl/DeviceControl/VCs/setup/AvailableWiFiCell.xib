@@ -22,16 +22,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGNAL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6q-EU-6Il">
-                        <rect key="frame" x="20" y="29" width="60" height="21"/>
+                        <rect key="frame" x="20" y="29" width="80" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="60" id="2gf-6I-W3X"/>
+                            <constraint firstAttribute="width" constant="80" id="2gf-6I-W3X"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="SSID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AvR-T6-5vc">
-                        <rect key="frame" x="100" y="29" width="255" height="21"/>
+                        <rect key="frame" x="120" y="29" width="235" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>

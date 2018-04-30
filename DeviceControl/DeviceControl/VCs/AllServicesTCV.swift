@@ -10,6 +10,7 @@ import UIKit
 
 class AllServicesTCV: UITableViewController {
     let SERVICE_CELL_IDENTIFIER: String = "SERVICE_CELL"
+	let CELL_HEIGHT: CGFloat = 80
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "All services"
@@ -38,7 +39,7 @@ class AllServicesTCV: UITableViewController {
         self.services = []
         self.serviceBrowser.delegate = self
         if all {
-            self.serviceBrowser.searchForServices(ofType: searchForAllString, inDomain: "local.")
+            self.serviceBrowser.searchForServices(ofType: searchForAllString, inDomain: "local")
         }
     }
     
@@ -49,6 +50,10 @@ class AllServicesTCV: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.services.count
     }
+	
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return CELL_HEIGHT
+	}
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -82,8 +87,7 @@ extension AllServicesTCV: NetServiceBrowserDelegate, NetServiceDelegate {
         service.delegate = nil
         self.removeServiceFromList(serviceObj: service)
     }
-    
-    ///Removes the service from the current list.
+	
     func removeServiceFromList(serviceObj: NetService){
         for (index, sev) in self.services.enumerated() {
             if sev == serviceObj {
