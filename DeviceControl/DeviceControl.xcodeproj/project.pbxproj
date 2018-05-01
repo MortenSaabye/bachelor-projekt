@@ -14,8 +14,13 @@
 		9C3115D320975976003A443E /* SCServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3115CF20975976003A443E /* SCServer.swift */; };
 		9C3115D8209762F0003A443E /* DeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3115D6209762F0003A443E /* DeviceCell.swift */; };
 		9C3115D9209762F0003A443E /* DeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3115D7209762F0003A443E /* DeviceCell.xib */; };
-		DF0DB3BE208E330B00866D3A /* AllServicesTCV.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF0DB3BC208E330A00866D3A /* AllServicesTCV.xib */; };
-		DF0DB3BF208E330B00866D3A /* AllServicesTCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0DB3BD208E330A00866D3A /* AllServicesTCV.swift */; };
+		9CE57E0B209867ED00B0D55A /* AddDevicesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE57E09209867ED00B0D55A /* AddDevicesTVC.swift */; };
+		9CE57E0C209867ED00B0D55A /* AddDevicesTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CE57E0A209867ED00B0D55A /* AddDevicesTVC.xib */; };
+		9CE57E0F209868DE00B0D55A /* AddDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE57E0D209868DE00B0D55A /* AddDeviceCell.swift */; };
+		9CE57E10209868DE00B0D55A /* AddDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CE57E0E209868DE00B0D55A /* AddDeviceCell.xib */; };
+		9CE57E12209896A800B0D55A /* CoAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE57E11209896A800B0D55A /* CoAPManager.swift */; };
+		DF0DB3BE208E330B00866D3A /* ServiceBrowserTCV.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF0DB3BC208E330A00866D3A /* ServiceBrowserTCV.xib */; };
+		DF0DB3BF208E330B00866D3A /* ServiceBrowserTCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0DB3BD208E330A00866D3A /* ServiceBrowserTCV.swift */; };
 		DF31D994208DDF7100A5A6BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF31D993208DDF7100A5A6BF /* Assets.xcassets */; };
 		DF31D997208DDF7100A5A6BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF31D995208DDF7100A5A6BF /* LaunchScreen.storyboard */; };
 		DF31D9A2208DDF7200A5A6BF /* DeviceControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF31D9A1208DDF7200A5A6BF /* DeviceControlTests.swift */; };
@@ -68,9 +73,14 @@
 		9C3115D420975AE2003A443E /* DeviceControl-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DeviceControl-Bridging-Header.h"; sourceTree = "<group>"; };
 		9C3115D6209762F0003A443E /* DeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCell.swift; sourceTree = "<group>"; };
 		9C3115D7209762F0003A443E /* DeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceCell.xib; sourceTree = "<group>"; };
+		9CE57E09209867ED00B0D55A /* AddDevicesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDevicesTVC.swift; sourceTree = "<group>"; };
+		9CE57E0A209867ED00B0D55A /* AddDevicesTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDevicesTVC.xib; sourceTree = "<group>"; };
+		9CE57E0D209868DE00B0D55A /* AddDeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceCell.swift; sourceTree = "<group>"; };
+		9CE57E0E209868DE00B0D55A /* AddDeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDeviceCell.xib; sourceTree = "<group>"; };
+		9CE57E11209896A800B0D55A /* CoAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoAPManager.swift; sourceTree = "<group>"; };
 		AC5A8C6F31D6A0EF68E70D0A /* Pods-DeviceControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeviceControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeviceControl/Pods-DeviceControl.debug.xcconfig"; sourceTree = "<group>"; };
-		DF0DB3BC208E330A00866D3A /* AllServicesTCV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AllServicesTCV.xib; path = DeviceControl/VCs/AllServicesTCV.xib; sourceTree = SOURCE_ROOT; };
-		DF0DB3BD208E330A00866D3A /* AllServicesTCV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllServicesTCV.swift; path = DeviceControl/VCs/AllServicesTCV.swift; sourceTree = SOURCE_ROOT; };
+		DF0DB3BC208E330A00866D3A /* ServiceBrowserTCV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ServiceBrowserTCV.xib; path = DeviceControl/VCs/ServiceBrowserTCV.xib; sourceTree = SOURCE_ROOT; };
+		DF0DB3BD208E330A00866D3A /* ServiceBrowserTCV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceBrowserTCV.swift; path = DeviceControl/VCs/ServiceBrowserTCV.swift; sourceTree = SOURCE_ROOT; };
 		DF31D989208DDF7100A5A6BF /* DeviceControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeviceControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF31D993208DDF7100A5A6BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF31D996208DDF7100A5A6BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -168,6 +178,17 @@
 			path = start;
 			sourceTree = "<group>";
 		};
+		9CE57E082098665600B0D55A /* DeviceBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				9CE57E09209867ED00B0D55A /* AddDevicesTVC.swift */,
+				9CE57E0A209867ED00B0D55A /* AddDevicesTVC.xib */,
+				9CE57E0D209868DE00B0D55A /* AddDeviceCell.swift */,
+				9CE57E0E209868DE00B0D55A /* AddDeviceCell.xib */,
+			);
+			path = DeviceBrowser;
+			sourceTree = "<group>";
+		};
 		DF31D980208DDF7100A5A6BF = {
 			isa = PBXGroup;
 			children = (
@@ -225,8 +246,9 @@
 		DF31D9C8208DDFBE00A5A6BF /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				9CE57E082098665600B0D55A /* DeviceBrowser */,
 				9C3115D5209762AC003A443E /* start */,
-				DFC0AFB6208E2A550088B075 /* allServices */,
+				DFC0AFB6208E2A550088B075 /* ServiceBrowser */,
 				DFC0AFB5208E256B0088B075 /* setup */,
 			);
 			path = VCs;
@@ -236,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				DFC0AFAC208E13BB0088B075 /* WiFiManager.swift */,
+				9CE57E11209896A800B0D55A /* CoAPManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -251,15 +274,15 @@
 			path = setup;
 			sourceTree = "<group>";
 		};
-		DFC0AFB6208E2A550088B075 /* allServices */ = {
+		DFC0AFB6208E2A550088B075 /* ServiceBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				DF0DB3BD208E330A00866D3A /* AllServicesTCV.swift */,
-				DF0DB3BC208E330A00866D3A /* AllServicesTCV.xib */,
+				DF0DB3BD208E330A00866D3A /* ServiceBrowserTCV.swift */,
+				DF0DB3BC208E330A00866D3A /* ServiceBrowserTCV.xib */,
 				DFC0AFB7208E2A7A0088B075 /* ServiceCell.swift */,
 				DFC0AFB8208E2A7A0088B075 /* ServiceCell.xib */,
 			);
-			path = allServices;
+			path = ServiceBrowser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,8 +395,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF31D997208DDF7100A5A6BF /* LaunchScreen.storyboard in Resources */,
-				DF0DB3BE208E330B00866D3A /* AllServicesTCV.xib in Resources */,
+				9CE57E10209868DE00B0D55A /* AddDeviceCell.xib in Resources */,
+				DF0DB3BE208E330B00866D3A /* ServiceBrowserTCV.xib in Resources */,
 				DFC0AFA4208DE08E0088B075 /* StartVC.xib in Resources */,
+				9CE57E0C209867ED00B0D55A /* AddDevicesTVC.xib in Resources */,
 				DFC0AFA6208DE0940088B075 /* AvailableWiFiCell.xib in Resources */,
 				DFC0AFBA208E2A7A0088B075 /* ServiceCell.xib in Resources */,
 				DF31D994208DDF7100A5A6BF /* Assets.xcassets in Resources */,
@@ -478,10 +503,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CE57E0B209867ED00B0D55A /* AddDevicesTVC.swift in Sources */,
 				DFC0AFAD208E13BB0088B075 /* WiFiManager.swift in Sources */,
 				9C3115D320975976003A443E /* SCServer.swift in Sources */,
-				DF0DB3BF208E330B00866D3A /* AllServicesTCV.swift in Sources */,
+				DF0DB3BF208E330B00866D3A /* ServiceBrowserTCV.swift in Sources */,
 				DFC0AFA7208DE0960088B075 /* DeviceSetupVC.swift in Sources */,
+				9CE57E0F209868DE00B0D55A /* AddDeviceCell.swift in Sources */,
+				9CE57E12209896A800B0D55A /* CoAPManager.swift in Sources */,
 				DFC0AFA2208DE0340088B075 /* AppDelegate.swift in Sources */,
 				DFC0AFB9208E2A7A0088B075 /* ServiceCell.swift in Sources */,
 				9C3115D020975976003A443E /* SCMessage.swift in Sources */,
@@ -656,15 +684,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SU9YC25M74;
+				DEVELOPMENT_TEAM = Y2UXHBF5A8;
 				INFOPLIST_FILE = DeviceControl/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mortensaabye.dk.DeviceControl;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mortensaabye.DeviceControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftCoAP/DeviceControl-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -678,15 +709,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SU9YC25M74;
+				DEVELOPMENT_TEAM = Y2UXHBF5A8;
 				INFOPLIST_FILE = DeviceControl/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mortensaabye.dk.DeviceControl;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mortensaabye.DeviceControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftCoAP/DeviceControl-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.rootViewController = navVC
         self.window?.makeKeyAndVisible()
+		CoAPManager.shared.startClient()
         return true
     }
 

@@ -8,38 +8,40 @@
 import UIKit
 
 
-class AllServicesTCV: UITableViewController {
+class ServiceBrowserTCV: UITableViewController {
     let SERVICE_CELL_IDENTIFIER: String = "SERVICE_CELL"
 	let CELL_HEIGHT: CGFloat = 80
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "All services"
+        self.title = "Find devices and gateways"
+		let closeBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.closeServiceBrowser))
+		self.navigationItem.rightBarButtonItem = closeBtn
         self.serviceBrowser.delegate = self
         self.startBrowsing(all: true)
         self.tableView.register(UINib(nibName: "ServiceCell", bundle: nil), forCellReuseIdentifier: SERVICE_CELL_IDENTIFIER)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    let searchForAllString = "_services._dns-sd._udp."
+	var serviceTypes: String = ""
+    var services = [NetService]()
+	
+	var resolvedServices = [NetService]() {
+		didSet {
+			self.tableView.reloadData()
+		}
+	}
+	
+	@objc func closeServiceBrowser() {
+		self.dismiss(animated: true, completion: nil)
+	}
     
-    var services = [NetService](){
-        didSet{
-            self.tableView.reloadData()
-        }
-    }
-    
-    private lazy var serviceBrowser = NetServiceBrowser()
+	let serviceBrowser = NetServiceBrowser()
 
     func startBrowsing(all: Bool){
         self.serviceBrowser.stop()
         self.services = []
         self.serviceBrowser.delegate = self
         if all {
-            self.serviceBrowser.searchForServices(ofType: searchForAllString, inDomain: "local")
+            self.serviceBrowser.searchForServices(ofType: serviceTypes, inDomain: "local")
         }
     }
     
@@ -48,7 +50,7 @@ class AllServicesTCV: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.services.count
+        return self.resolvedServices.count
     }
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -64,14 +66,21 @@ class AllServicesTCV: UITableViewController {
         guard self.services.count > 0 || self.services.count >= indexPath.row else {
             return cell
         }
-        let service = self.services[indexPath.row]
+		
+        let service = self.resolvedServices[indexPath.row]
         cell.infoLabel.text = "Name: \(service.name)\nDomain: \(service.domain)\nPort: \(service.port)"
         return cell
     }
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let deviceBrowser = AddDevicesTVC()
+		deviceBrowser.service = self.resolvedServices[indexPath.row]
+		self.navigationController?.pushViewController(deviceBrowser, animated: true)
+	}
 }
 
 
-extension AllServicesTCV: NetServiceBrowserDelegate, NetServiceDelegate {
+extension ServiceBrowserTCV: NetServiceBrowserDelegate, NetServiceDelegate {
     
     func netServiceBrowser(_ browser: NetServiceBrowser, didNotSearch errorDict: [String : NSNumber]) {
         print("Error serching for service")
@@ -80,13 +89,26 @@ extension AllServicesTCV: NetServiceBrowserDelegate, NetServiceDelegate {
     
     func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) {
         service.delegate = self
-        self.services.append(service)
+		self.services.append(service)
+		service.resolve(withTimeout: 5000)
     }
     
     func netServiceBrowser(_ browser: NetServiceBrowser, didRemove service: NetService, moreComing: Bool) {
         service.delegate = nil
         self.removeServiceFromList(serviceObj: service)
     }
+	
+	func netServiceDidResolveAddress(_ sender: NetService) {
+		self.resolvedServices.append(sender)
+	}
+	
+	func netServiceDidStop(_ sender: NetService) {
+		print("found")
+	}
+	
+	func netService(_ sender: NetService, didNotResolve errorDict: [String : NSNumber]) {
+		print("wrong")
+	}
 	
     func removeServiceFromList(serviceObj: NetService){
         for (index, sev) in self.services.enumerated() {
