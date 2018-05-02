@@ -8,10 +8,8 @@
 
 import UIKit
 
-class StartVC: UIViewController  {
-	var devices = [Device]()
+class StartVC: UIViewController, CoAPManagerDelegate  {
 	@IBOutlet weak var deviceCollectionView: UICollectionView!
-	let LOCALDEVICES_FILENAME: String = "local-devices"
 	let DEVICE_CELL_IDENTIFIER: String = "DEVICE_CELL"
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +20,15 @@ class StartVC: UIViewController  {
         let allServiceBtn: UIBarButtonItem = UIBarButtonItem(title: "Add device", style: .plain, target: self, action: #selector(self.addDevice))
         self.navigationItem.leftBarButtonItem = allServiceBtn
 		self.deviceCollectionView.register(UINib(nibName: "DeviceCell", bundle: nil), forCellWithReuseIdentifier: DEVICE_CELL_IDENTIFIER)
-		self.loadDevices()
-    }
+		self.deviceCollectionView.delegate = self
+		self.deviceCollectionView.dataSource = self
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		CoAPManager.shared.delegate = self
+		CoAPManager.shared.checkStateForLocalDevices()
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -42,110 +47,55 @@ class StartVC: UIViewController  {
         self.present(navVC, animated: true)
     }
 	
-//	MARK: Read and write devices
-	func loadDevices() {
-		guard let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-			print("Could not get path")
+//	MARK: CoAPManagerDelegate
+	
+	func didReceiveResponse(payload: [String : Any]?) {
+		print("received message")
+		guard let states = payload?["result"] as? [[String : Any]] else {
+			print("could not get device from dict")
 			return
 		}
-		let fileURL = dir.appendingPathComponent(self.LOCALDEVICES_FILENAME)
-
-		guard let devices = NSKeyedUnarchiver.unarchiveObject(withFile: fileURL.absoluteString) as? [Device] else {
-			print("Could not find local devices")
-			return
+		var indexToReload: Int = 0
+		for state in states {
+			for device in DeviceManager.shared.devices {
+				if device.id == state["id"] as? Int {
+					guard let isOn = state["isOn"] as? Bool,
+						let state = state["state"] as? String else {
+							print("Could not find all properties in state")
+							return
+					}
+					device.isOn = isOn
+					device.state = state
+					device.isConnected = true
+					let indexPath = IndexPath(item: indexToReload, section: 0)
+					self.deviceCollectionView.reloadItems(at: [indexPath])
+				}
+				indexToReload += 1
+			}
 		}
-		self.devices = devices
 	}
+	
 }
 
-extension StartVC: UICollectionViewDataSource, UICollectionViewDelegate {
+extension StartVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return self.devices.count
+		return DeviceManager.shared.devices.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		return collectionView.dequeueReusableCell(withReuseIdentifier: DEVICE_CELL_IDENTIFIER, for: indexPath)
+		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DEVICE_CELL_IDENTIFIER, for: indexPath) as? DeviceCell else {
+			return UICollectionViewCell()
+		}
+		cell.setupCell(device: DeviceManager.shared.devices[indexPath.row])
+		return cell
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		let width = self.view.frame.width - 30
+		let height = CGFloat(150)
+		return CGSize(width: width, height: height)
 	}
 	
 }
 
-
-
-
-class Device : NSObject, NSCoding {
-	init(type: String, resourcePath: String, name: String) {
-		self.name = name
-		self.resourcePath = resourcePath
-		self.type = DeviceType.typeFromString(string: type)
-	}
-	
-	convenience init?(dict: [String: Any]) {
-		guard let typestring = dict["type"] as? String,
-			let name = dict["name"] as? String,
-			let resourcePath = dict["path"] as? String else {
-				print("Not all values present")
-				return nil
-		}
-		self.init(type: typestring, resourcePath: resourcePath, name: name)
-	}
-	
-	func encode(with aCoder: NSCoder) {
-		aCoder.encode(self.type.stringRepresentation(), forKey: "type")
-		aCoder.encode(self.resourcePath, forKey: "path")
-		aCoder.encode(self.name, forKey: "name")
-	}
-	
-	required convenience init?(coder aDecoder: NSCoder) {
-		guard let typestring = aDecoder.decodeObject(forKey: "type") as? String,
-			let resourcePath = aDecoder.decodeObject(forKey: "path") as? String,
-			let name = aDecoder.decodeObject(forKey: "name") as? String else {
-				return nil
-		}
-		self.init(type: typestring, resourcePath: resourcePath, name: name)
-	}
-	
-	let type: DeviceType
-	let resourcePath: String
-	var name: String
-}
-
-enum DeviceType {
-	case Light
-	case Screen
-	case Other
-	
-	static func typeFromString(string: String) -> DeviceType {
-		switch string {
-		case "light":
-			return self.Light
-		case "screen":
-			return self.Screen
-		default:
-			return self.Other
-		}
-	}
-	
-	func getIcon() -> UIImage {
-		switch self {
-		case .Light:
-			return #imageLiteral(resourceName: "light")
-		case .Screen:
-			return #imageLiteral(resourceName: "screen")
-		default:
-			return #imageLiteral(resourceName: "other")
-		}
-	}
-	
-	func stringRepresentation() -> String {
-		switch self {
-		case .Light:
-			return "light"
-		case .Screen:
-			return "screen"
-		default:
-			return "other"
-		}
-	}
-	
-}
 

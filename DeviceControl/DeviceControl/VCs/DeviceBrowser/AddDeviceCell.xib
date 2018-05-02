@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -27,7 +26,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6QL-ZV-8Yn">
-                        <rect key="frame" x="116.5" y="45" width="211.5" height="21"/>
+                        <rect key="frame" x="116.5" y="20" width="211.5" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -43,20 +42,29 @@ VGVzdBAQEA
                             <action selector="testButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="V5N-h3-Xar"/>
                         </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDS-Ih-HKY">
+                        <rect key="frame" x="116.5" y="48" width="33" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="zo0-ZA-LiF" secondAttribute="trailing" constant="16" id="0Fx-LY-tcY"/>
                     <constraint firstAttribute="bottom" secondItem="kZa-OB-3HY" secondAttribute="bottom" constant="15" id="9kK-bP-awq"/>
                     <constraint firstItem="6QL-ZV-8Yn" firstAttribute="leading" secondItem="kZa-OB-3HY" secondAttribute="trailing" constant="20" id="RKU-wa-B8m"/>
-                    <constraint firstItem="6QL-ZV-8Yn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WCR-QB-p0O"/>
+                    <constraint firstItem="6QL-ZV-8Yn" firstAttribute="top" secondItem="kZa-OB-3HY" secondAttribute="top" constant="5" id="W4Z-Md-hIM"/>
                     <constraint firstItem="kZa-OB-3HY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="XdQ-QD-2uc"/>
+                    <constraint firstItem="dDS-Ih-HKY" firstAttribute="leading" secondItem="6QL-ZV-8Yn" secondAttribute="leading" id="hdE-vb-mc5"/>
                     <constraint firstItem="kZa-OB-3HY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="kj1-9D-Sdy"/>
                     <constraint firstItem="zo0-ZA-LiF" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="m8b-US-l7g"/>
                     <constraint firstItem="zo0-ZA-LiF" firstAttribute="leading" secondItem="6QL-ZV-8Yn" secondAttribute="trailing" constant="10" id="oZK-0P-DPf"/>
+                    <constraint firstItem="dDS-Ih-HKY" firstAttribute="top" secondItem="6QL-ZV-8Yn" secondAttribute="bottom" constant="7" id="v6g-wc-hLl"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="alreadyAddedLabel" destination="dDS-Ih-HKY" id="yRw-Fi-0EB"/>
                 <outlet property="iconView" destination="kZa-OB-3HY" id="iAT-UC-lwe"/>
                 <outlet property="namelabel" destination="6QL-ZV-8Yn" id="ghg-Un-Cz6"/>
             </connections>

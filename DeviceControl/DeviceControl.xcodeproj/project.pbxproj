@@ -19,6 +19,7 @@
 		9CE57E0F209868DE00B0D55A /* AddDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE57E0D209868DE00B0D55A /* AddDeviceCell.swift */; };
 		9CE57E10209868DE00B0D55A /* AddDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CE57E0E209868DE00B0D55A /* AddDeviceCell.xib */; };
 		9CE57E12209896A800B0D55A /* CoAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE57E11209896A800B0D55A /* CoAPManager.swift */; };
+		9CE57E142099910500B0D55A /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE57E132099910500B0D55A /* DeviceManager.swift */; };
 		DF0DB3BE208E330B00866D3A /* ServiceBrowserTCV.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF0DB3BC208E330A00866D3A /* ServiceBrowserTCV.xib */; };
 		DF0DB3BF208E330B00866D3A /* ServiceBrowserTCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0DB3BD208E330A00866D3A /* ServiceBrowserTCV.swift */; };
 		DF31D994208DDF7100A5A6BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF31D993208DDF7100A5A6BF /* Assets.xcassets */; };
@@ -78,6 +79,7 @@
 		9CE57E0D209868DE00B0D55A /* AddDeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceCell.swift; sourceTree = "<group>"; };
 		9CE57E0E209868DE00B0D55A /* AddDeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDeviceCell.xib; sourceTree = "<group>"; };
 		9CE57E11209896A800B0D55A /* CoAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoAPManager.swift; sourceTree = "<group>"; };
+		9CE57E132099910500B0D55A /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
 		AC5A8C6F31D6A0EF68E70D0A /* Pods-DeviceControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeviceControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeviceControl/Pods-DeviceControl.debug.xcconfig"; sourceTree = "<group>"; };
 		DF0DB3BC208E330A00866D3A /* ServiceBrowserTCV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ServiceBrowserTCV.xib; path = DeviceControl/VCs/ServiceBrowserTCV.xib; sourceTree = SOURCE_ROOT; };
 		DF0DB3BD208E330A00866D3A /* ServiceBrowserTCV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceBrowserTCV.swift; path = DeviceControl/VCs/ServiceBrowserTCV.swift; sourceTree = SOURCE_ROOT; };
@@ -259,6 +261,7 @@
 			children = (
 				DFC0AFAC208E13BB0088B075 /* WiFiManager.swift */,
 				9CE57E11209896A800B0D55A /* CoAPManager.swift */,
+				9CE57E132099910500B0D55A /* DeviceManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				9CE57E12209896A800B0D55A /* CoAPManager.swift in Sources */,
 				DFC0AFA2208DE0340088B075 /* AppDelegate.swift in Sources */,
 				DFC0AFB9208E2A7A0088B075 /* ServiceCell.swift in Sources */,
+				9CE57E142099910500B0D55A /* DeviceManager.swift in Sources */,
 				9C3115D020975976003A443E /* SCMessage.swift in Sources */,
 				9C3115D220975976003A443E /* GCDAsyncUdpSocket.m in Sources */,
 				9C3115D120975976003A443E /* SCClient.swift in Sources */,

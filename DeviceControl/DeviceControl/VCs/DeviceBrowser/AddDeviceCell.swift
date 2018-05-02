@@ -13,11 +13,22 @@ class AddDeviceCell: UITableViewCell {
 		didSet {
 			self.namelabel.text = device?.name
 			self.imageView?.image = device?.type.getIcon()
+			self.alreadyAddedLabel.text = self.isOnStart ? "Already on start" : "Not added"
+		}
+	}
+	
+	var isOnStart: Bool {
+		get {
+			guard let device = self.device else {
+				return false
+			}
+			return DeviceManager.shared.deviceAdded(device: device)
 		}
 	}
 
 	@IBOutlet weak var iconView: UIImageView!
 	@IBOutlet weak var namelabel: UILabel!
+	@IBOutlet weak var alreadyAddedLabel: UILabel!
 	
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,6 +51,6 @@ class AddDeviceCell: UITableViewCell {
 			print("No device")
 			return
 		}
-		CoAPManager.shared.testDevice(device: device)
+		CoAPManager.shared.deviceGet(device: device, pathComponent: "test")
 	}
 }
