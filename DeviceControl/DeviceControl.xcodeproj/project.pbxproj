@@ -3,17 +3,21 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		48F36F19A0257A5E29AA37D1 /* Pods_DeviceControlTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B703AE2406583BF4F38AEB /* Pods_DeviceControlTests.framework */; };
 		9C3115D020975976003A443E /* SCMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3115CB20975976003A443E /* SCMessage.swift */; };
 		9C3115D120975976003A443E /* SCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3115CC20975976003A443E /* SCClient.swift */; };
-		9C3115D220975976003A443E /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C3115CD20975976003A443E /* GCDAsyncUdpSocket.m */; };
 		9C3115D320975976003A443E /* SCServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3115CF20975976003A443E /* SCServer.swift */; };
 		9C3115D8209762F0003A443E /* DeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3115D6209762F0003A443E /* DeviceCell.swift */; };
 		9C3115D9209762F0003A443E /* DeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3115D7209762F0003A443E /* DeviceCell.xib */; };
+		9C3F60DD209B21A000EE5723 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F60DB209B21A000EE5723 /* FooterView.swift */; };
+		9C3F60DE209B21A000EE5723 /* FooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3F60DC209B21A000EE5723 /* FooterView.xib */; };
+		9C3F60E2209B2BC500EE5723 /* AddMQTTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F60E0209B2BC500EE5723 /* AddMQTTVC.swift */; };
+		9C3F60E3209B2BC500EE5723 /* AddMQTTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3F60E1209B2BC500EE5723 /* AddMQTTVC.xib */; };
+		9C3F60E5209B469500EE5723 /* MQTTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F60E4209B469500EE5723 /* MQTTManager.swift */; };
 		9CE57E0B209867ED00B0D55A /* AddDevicesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE57E09209867ED00B0D55A /* AddDevicesTVC.swift */; };
 		9CE57E0C209867ED00B0D55A /* AddDevicesTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CE57E0A209867ED00B0D55A /* AddDevicesTVC.xib */; };
 		9CE57E0F209868DE00B0D55A /* AddDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE57E0D209868DE00B0D55A /* AddDeviceCell.swift */; };
@@ -68,12 +72,14 @@
 		95909309D04EE6F8587E1BD2 /* Pods-DeviceControlUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeviceControlUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeviceControlUITests/Pods-DeviceControlUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C3115CB20975976003A443E /* SCMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCMessage.swift; sourceTree = "<group>"; };
 		9C3115CC20975976003A443E /* SCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCClient.swift; sourceTree = "<group>"; };
-		9C3115CD20975976003A443E /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
-		9C3115CE20975976003A443E /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
 		9C3115CF20975976003A443E /* SCServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCServer.swift; sourceTree = "<group>"; };
-		9C3115D420975AE2003A443E /* DeviceControl-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DeviceControl-Bridging-Header.h"; sourceTree = "<group>"; };
 		9C3115D6209762F0003A443E /* DeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCell.swift; sourceTree = "<group>"; };
 		9C3115D7209762F0003A443E /* DeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceCell.xib; sourceTree = "<group>"; };
+		9C3F60DB209B21A000EE5723 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		9C3F60DC209B21A000EE5723 /* FooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FooterView.xib; sourceTree = "<group>"; };
+		9C3F60E0209B2BC500EE5723 /* AddMQTTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMQTTVC.swift; sourceTree = "<group>"; };
+		9C3F60E1209B2BC500EE5723 /* AddMQTTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddMQTTVC.xib; sourceTree = "<group>"; };
+		9C3F60E4209B469500EE5723 /* MQTTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTManager.swift; sourceTree = "<group>"; };
 		9CE57E09209867ED00B0D55A /* AddDevicesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDevicesTVC.swift; sourceTree = "<group>"; };
 		9CE57E0A209867ED00B0D55A /* AddDevicesTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDevicesTVC.xib; sourceTree = "<group>"; };
 		9CE57E0D209868DE00B0D55A /* AddDeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceCell.swift; sourceTree = "<group>"; };
@@ -159,12 +165,9 @@
 		9C3115CA20975954003A443E /* SwiftCoAP */ = {
 			isa = PBXGroup;
 			children = (
-				9C3115CE20975976003A443E /* GCDAsyncUdpSocket.h */,
-				9C3115CD20975976003A443E /* GCDAsyncUdpSocket.m */,
 				9C3115CC20975976003A443E /* SCClient.swift */,
 				9C3115CB20975976003A443E /* SCMessage.swift */,
 				9C3115CF20975976003A443E /* SCServer.swift */,
-				9C3115D420975AE2003A443E /* DeviceControl-Bridging-Header.h */,
 			);
 			path = SwiftCoAP;
 			sourceTree = "<group>";
@@ -176,8 +179,19 @@
 				DF31D9CF208DDFC800A5A6BF /* StartVC.xib */,
 				9C3115D6209762F0003A443E /* DeviceCell.swift */,
 				9C3115D7209762F0003A443E /* DeviceCell.xib */,
+				9C3F60DB209B21A000EE5723 /* FooterView.swift */,
+				9C3F60DC209B21A000EE5723 /* FooterView.xib */,
 			);
 			path = start;
+			sourceTree = "<group>";
+		};
+		9C3F60DF209B2BA100EE5723 /* mqttCreds */ = {
+			isa = PBXGroup;
+			children = (
+				9C3F60E0209B2BC500EE5723 /* AddMQTTVC.swift */,
+				9C3F60E1209B2BC500EE5723 /* AddMQTTVC.xib */,
+			);
+			path = mqttCreds;
 			sourceTree = "<group>";
 		};
 		9CE57E082098665600B0D55A /* DeviceBrowser */ = {
@@ -194,8 +208,8 @@
 		DF31D980208DDF7100A5A6BF = {
 			isa = PBXGroup;
 			children = (
-				9C3115CA20975954003A443E /* SwiftCoAP */,
 				DF31D98B208DDF7100A5A6BF /* DeviceControl */,
+				9C3115CA20975954003A443E /* SwiftCoAP */,
 				DF31D9A0208DDF7200A5A6BF /* DeviceControlTests */,
 				DF31D9AB208DDF7200A5A6BF /* DeviceControlUITests */,
 				DF31D98A208DDF7100A5A6BF /* Products */,
@@ -248,6 +262,7 @@
 		DF31D9C8208DDFBE00A5A6BF /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				9C3F60DF209B2BA100EE5723 /* mqttCreds */,
 				9CE57E082098665600B0D55A /* DeviceBrowser */,
 				9C3115D5209762AC003A443E /* start */,
 				DFC0AFB6208E2A550088B075 /* ServiceBrowser */,
@@ -262,6 +277,7 @@
 				DFC0AFAC208E13BB0088B075 /* WiFiManager.swift */,
 				9CE57E11209896A800B0D55A /* CoAPManager.swift */,
 				9CE57E132099910500B0D55A /* DeviceManager.swift */,
+				9C3F60E4209B469500EE5723 /* MQTTManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -300,6 +316,7 @@
 				DF31D986208DDF7100A5A6BF /* Frameworks */,
 				DF31D987208DDF7100A5A6BF /* Resources */,
 				C8380F8E834DCF7EE092D855 /* [CP] Embed Pods Frameworks */,
+				DB54481C1BF1BD17DFCF7FE3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -318,6 +335,8 @@
 				DF31D999208DDF7200A5A6BF /* Sources */,
 				DF31D99A208DDF7200A5A6BF /* Frameworks */,
 				DF31D99B208DDF7200A5A6BF /* Resources */,
+				EB179DC7A4FFF7148B1C91FC /* [CP] Embed Pods Frameworks */,
+				183428A0C3377C98B3D15788 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -337,6 +356,8 @@
 				DF31D9A4208DDF7200A5A6BF /* Sources */,
 				DF31D9A5208DDF7200A5A6BF /* Frameworks */,
 				DF31D9A6208DDF7200A5A6BF /* Resources */,
+				9754AF8F6CC316019469C175 /* [CP] Embed Pods Frameworks */,
+				7FB598D8A8CE2C70FF0ACD48 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -361,19 +382,22 @@
 					DF31D988208DDF7100A5A6BF = {
 						CreatedOnToolsVersion = 9.3;
 						LastSwiftMigration = 0930;
+						ProvisioningStyle = Automatic;
 					};
 					DF31D99C208DDF7200A5A6BF = {
 						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
 						TestTargetID = DF31D988208DDF7100A5A6BF;
 					};
 					DF31D9A7208DDF7200A5A6BF = {
 						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
 						TestTargetID = DF31D988208DDF7100A5A6BF;
 					};
 				};
 			};
 			buildConfigurationList = DF31D984208DDF7100A5A6BF /* Build configuration list for PBXProject "DeviceControl" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -399,9 +423,11 @@
 			files = (
 				DF31D997208DDF7100A5A6BF /* LaunchScreen.storyboard in Resources */,
 				9CE57E10209868DE00B0D55A /* AddDeviceCell.xib in Resources */,
+				9C3F60DE209B21A000EE5723 /* FooterView.xib in Resources */,
 				DF0DB3BE208E330B00866D3A /* ServiceBrowserTCV.xib in Resources */,
 				DFC0AFA4208DE08E0088B075 /* StartVC.xib in Resources */,
 				9CE57E0C209867ED00B0D55A /* AddDevicesTVC.xib in Resources */,
+				9C3F60E3209B2BC500EE5723 /* AddMQTTVC.xib in Resources */,
 				DFC0AFA6208DE0940088B075 /* AvailableWiFiCell.xib in Resources */,
 				DFC0AFBA208E2A7A0088B075 /* ServiceCell.xib in Resources */,
 				DF31D994208DDF7100A5A6BF /* Assets.xcassets in Resources */,
@@ -427,6 +453,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		183428A0C3377C98B3D15788 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DeviceControlTests/Pods-DeviceControlTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2E740BF9EEEBEC9BA21636FA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -443,6 +484,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7FB598D8A8CE2C70FF0ACD48 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DeviceControlUITests/Pods-DeviceControlUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9754AF8F6CC316019469C175 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DeviceControlUITests/Pods-DeviceControlUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9BA3E07F1BE7E975D82C38A0 /* [CP] Check Pods Manifest.lock */ = {
@@ -471,14 +542,50 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DeviceControl/Pods-DeviceControl-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaMQTT/CocoaMQTT.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyTimer/SwiftyTimer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaMQTT.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyTimer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DeviceControl/Pods-DeviceControl-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DB54481C1BF1BD17DFCF7FE3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DeviceControl/Pods-DeviceControl-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB179DC7A4FFF7148B1C91FC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DeviceControlTests/Pods-DeviceControlTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ED428C97B6979D9C9C70579F /* [CP] Check Pods Manifest.lock */ = {
@@ -507,8 +614,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CE57E0B209867ED00B0D55A /* AddDevicesTVC.swift in Sources */,
+				9C3F60E5209B469500EE5723 /* MQTTManager.swift in Sources */,
 				DFC0AFAD208E13BB0088B075 /* WiFiManager.swift in Sources */,
 				9C3115D320975976003A443E /* SCServer.swift in Sources */,
+				9C3F60E2209B2BC500EE5723 /* AddMQTTVC.swift in Sources */,
 				DF0DB3BF208E330B00866D3A /* ServiceBrowserTCV.swift in Sources */,
 				DFC0AFA7208DE0960088B075 /* DeviceSetupVC.swift in Sources */,
 				9CE57E0F209868DE00B0D55A /* AddDeviceCell.swift in Sources */,
@@ -517,11 +626,11 @@
 				DFC0AFB9208E2A7A0088B075 /* ServiceCell.swift in Sources */,
 				9CE57E142099910500B0D55A /* DeviceManager.swift in Sources */,
 				9C3115D020975976003A443E /* SCMessage.swift in Sources */,
-				9C3115D220975976003A443E /* GCDAsyncUdpSocket.m in Sources */,
 				9C3115D120975976003A443E /* SCClient.swift in Sources */,
 				DFC0AFA5208DE0910088B075 /* AvailableWiFiCell.swift in Sources */,
 				DFC0AFA3208DE0870088B075 /* StartVC.swift in Sources */,
 				9C3115D8209762F0003A443E /* DeviceCell.swift in Sources */,
+				9C3F60DD209B21A000EE5723 /* FooterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,8 +785,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -693,10 +801,7 @@
 				DEVELOPMENT_TEAM = Y2UXHBF5A8;
 				INFOPLIST_FILE = DeviceControl/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mortensaabye.DeviceControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -718,10 +823,7 @@
 				DEVELOPMENT_TEAM = Y2UXHBF5A8;
 				INFOPLIST_FILE = DeviceControl/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mortensaabye.DeviceControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -740,11 +842,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SU9YC25M74;
 				INFOPLIST_FILE = DeviceControlTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mortensaabye.dk.DeviceControlTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -762,11 +860,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SU9YC25M74;
 				INFOPLIST_FILE = DeviceControlTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mortensaabye.dk.DeviceControlTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -783,11 +877,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SU9YC25M74;
 				INFOPLIST_FILE = DeviceControlUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mortensaabye.dk.DeviceControlUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -804,11 +894,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SU9YC25M74;
 				INFOPLIST_FILE = DeviceControlUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mortensaabye.dk.DeviceControlUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

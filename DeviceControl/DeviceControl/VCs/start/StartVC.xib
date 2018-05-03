@@ -26,8 +26,8 @@
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="etD-64-Mj8">
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
+                        <size key="footerReferenceSize" width="50" height="50"/>
+                        <inset key="sectionInset" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
                     </collectionViewFlowLayout>
                 </collectionView>
             </subviews>
@@ -39,7 +39,7 @@
                 <constraint firstItem="xk1-a4-BBJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ft4-e3-OFk"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="32.5" y="195.5"/>
+            <point key="canvasLocation" x="35" y="234"/>
         </view>
     </objects>
 </document>

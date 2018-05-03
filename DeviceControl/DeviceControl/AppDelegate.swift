@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
 		CoAPManager.shared.startClient()
 		DeviceManager.shared.loadDevices()
+		MQTTManager.shared.loadServerInfo()
         return true
     }
 

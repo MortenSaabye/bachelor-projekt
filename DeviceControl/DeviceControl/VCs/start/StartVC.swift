@@ -11,6 +11,7 @@ import UIKit
 class StartVC: UIViewController, CoAPManagerDelegate  {
 	@IBOutlet weak var deviceCollectionView: UICollectionView!
 	let DEVICE_CELL_IDENTIFIER: String = "DEVICE_CELL"
+	let FOOTER_VIEW_IDENTIFIER: String = "FooterView"
 	override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Device Control"
@@ -20,6 +21,7 @@ class StartVC: UIViewController, CoAPManagerDelegate  {
         let allServiceBtn: UIBarButtonItem = UIBarButtonItem(title: "Add device", style: .plain, target: self, action: #selector(self.addDevice))
         self.navigationItem.leftBarButtonItem = allServiceBtn
 		self.deviceCollectionView.register(UINib(nibName: "DeviceCell", bundle: nil), forCellWithReuseIdentifier: DEVICE_CELL_IDENTIFIER)
+		self.deviceCollectionView.register(UINib(nibName: "FooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: FOOTER_VIEW_IDENTIFIER)
 		self.deviceCollectionView.delegate = self
 		self.deviceCollectionView.dataSource = self
 	}
@@ -110,6 +112,28 @@ extension StartVC: UICollectionViewDataSource, UICollectionViewDelegate, UIColle
 		let device = DeviceManager.shared.devices[indexPath.row]
 		CoAPManager.shared.devicePut(device: device, pathComponent: "state")
 	}
+	
+	func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+		guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FOOTER_VIEW_IDENTIFIER, for: indexPath) as? FooterView else {
+			print("Could not cast to FooterView")
+			return UICollectionReusableView()
+		}
+		footerView.delegate = self
+		return footerView
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+		return CGSize(width: self.view.frame.width - 30, height: 120)
+	}
+}
+
+extension StartVC: FooterDelegate {
+	func presentMQTTView(sender: FooterView) {
+		let mqttVC = AddMQTTVC()
+		let navVC = UINavigationController(rootViewController: mqttVC)
+		self.present(navVC, animated: true, completion: nil)
+	}
+	
 	
 }
 

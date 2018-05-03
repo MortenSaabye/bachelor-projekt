@@ -14,6 +14,8 @@ protocol WiFiDelegate {
     func didConnectToNetwork(sender: WiFiManager, success: Bool, error: String?)
 }
 
+
+
 class WiFiManager {
     let baseURL: String = "http://raspberry.local:3000/"
     var delegate: WiFiDelegate?
@@ -21,7 +23,7 @@ class WiFiManager {
     func getAvailableWifi() {
         Alamofire.request("\(baseURL)getwifiinfo").validate().responseJSON { [weak self] (response) in
             guard let safeSelf = self else {
-                print("DataController has been deallocated")
+                print("Wifimanager has been deallocated")
                 return
             }
             guard let JSONValue = response.result.value as? [String: Any],
@@ -36,7 +38,6 @@ class WiFiManager {
                     networks.append(wifiNetwork)
                 }
             }
-			
             safeSelf.delegate?.didReceiveNetworkInfo(sender: safeSelf, networks: networks)
         }
     }
@@ -59,7 +60,6 @@ class WiFiManager {
             safeSelf.delegate?.didConnectToNetwork(sender: safeSelf, success: success, error: JSONValue["errormessage"] as? String ?? "")
         }
     }
-    
     init(){}
     
 }
