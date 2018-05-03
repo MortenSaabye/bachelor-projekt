@@ -13,14 +13,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DEVICE_CELL" id="gTV-IL-0wX" customClass="DeviceCell" customModule="DeviceControl" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="372" height="155"/>
+            <rect key="frame" x="0.0" y="0.0" width="372" height="196"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="372" height="155"/>
+                <rect key="frame" x="0.0" y="0.0" width="372" height="196"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gwy-Z2-gXK">
-                        <rect key="frame" x="0.0" y="0.0" width="372" height="155"/>
+                        <rect key="frame" x="0.0" y="0.0" width="372" height="196"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of device" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBI-Jx-sjZ">
                                 <rect key="frame" x="10" y="16" width="236" height="30"/>
@@ -53,10 +53,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Set a new state" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Fcv-gD-mHj">
+                                <rect key="frame" x="10" y="152" width="352" height="30"/>
+                                <color key="backgroundColor" red="0.1450980392" green="0.6705882353" blue="0.96862745100000003" alpha="0.11625107020547945" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
-                        <color key="backgroundColor" red="0.14395584402500003" green="0.6705882353" blue="0.96862745100000003" alpha="0.21821489726027396" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.14509803921568626" green="0.6705882353" blue="0.96862745100000003" alpha="0.3025203339041096" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="e5u-fw-JAp" firstAttribute="top" secondItem="UYF-Lu-Cqq" secondAttribute="bottom" constant="8" id="Izp-aF-WP7"/>
+                            <constraint firstItem="Fcv-gD-mHj" firstAttribute="top" secondItem="e5u-fw-JAp" secondAttribute="bottom" constant="12" id="Lwg-zE-3fE"/>
                             <constraint firstItem="k2m-TP-HNn" firstAttribute="leading" secondItem="QTn-m6-QNm" secondAttribute="leading" constant="10" id="OG9-7v-FOw"/>
                             <constraint firstItem="UYF-Lu-Cqq" firstAttribute="leading" secondItem="aBI-Jx-sjZ" secondAttribute="trailing" constant="10" id="OK4-mi-gnS"/>
                             <constraint firstItem="aBI-Jx-sjZ" firstAttribute="leading" secondItem="Gwy-Z2-gXK" secondAttribute="leading" constant="10" id="Oqy-HW-paX"/>
@@ -65,8 +73,10 @@
                             <constraint firstItem="MIC-OS-9ie" firstAttribute="top" secondItem="aBI-Jx-sjZ" secondAttribute="bottom" constant="8" id="ahv-oH-lfo"/>
                             <constraint firstAttribute="trailing" secondItem="e5u-fw-JAp" secondAttribute="trailing" constant="10" id="dbQ-Kn-sHY"/>
                             <constraint firstItem="k2m-TP-HNn" firstAttribute="top" secondItem="MIC-OS-9ie" secondAttribute="bottom" constant="8" id="e7J-24-vWT"/>
+                            <constraint firstItem="Fcv-gD-mHj" firstAttribute="leading" secondItem="QTn-m6-QNm" secondAttribute="leading" constant="10" id="e8o-TL-o6f"/>
                             <constraint firstItem="MIC-OS-9ie" firstAttribute="leading" secondItem="QTn-m6-QNm" secondAttribute="leading" constant="10" id="hrW-r1-orX"/>
                             <constraint firstItem="aBI-Jx-sjZ" firstAttribute="top" secondItem="UYF-Lu-Cqq" secondAttribute="top" id="riG-BY-4vq"/>
+                            <constraint firstItem="QTn-m6-QNm" firstAttribute="trailing" secondItem="Fcv-gD-mHj" secondAttribute="trailing" constant="10" id="vNi-9M-hYR"/>
                             <constraint firstItem="e5u-fw-JAp" firstAttribute="leading" secondItem="QTn-m6-QNm" secondAttribute="leading" constant="10" id="wLq-3J-e5h"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QTn-m6-QNm"/>
@@ -82,7 +92,7 @@
                 <constraint firstItem="Gwy-Z2-gXK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ueb-sw-Cko"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="372" height="155"/>
+            <size key="customSize" width="372" height="196"/>
             <connections>
                 <outlet property="container" destination="Gwy-Z2-gXK" id="53E-Rw-Dec"/>
                 <outlet property="iconView" destination="UYF-Lu-Cqq" id="HP1-dA-ihR"/>
@@ -90,8 +100,9 @@
                 <outlet property="nameLabel" destination="aBI-Jx-sjZ" id="Nlw-cZ-Oz1"/>
                 <outlet property="pathLabel" destination="e5u-fw-JAp" id="wD0-7o-h7d"/>
                 <outlet property="stateLabel" destination="k2m-TP-HNn" id="4x8-dX-nmD"/>
+                <outlet property="stateTextfield" destination="Fcv-gD-mHj" id="Zgl-6h-7kl"/>
             </connections>
-            <point key="canvasLocation" x="-169" y="-63.5"/>
+            <point key="canvasLocation" x="-169" y="-43"/>
         </collectionViewCell>
     </objects>
 </document>

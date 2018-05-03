@@ -55,31 +55,70 @@ class CoAPManager: SCClientDelegate {
 	}
 	
 	func checkStateForLocalDevices() {
-		for device in DeviceManager.shared.devices {
-			self.deviceGet(device: device, pathComponent: "state")
+		let hosts = getListOfHosts()
+		for host in hosts {
+			var payload = [String]()
+			for device in DeviceManager.shared.devices {
+				if device.host == host {
+					payload.append(String(device.id))
+				}
+			}
+			let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 01)!, type: .confirmable, payload: "\(payload)".data(using: .utf8))
+			if let pathData = "state".data(using: .utf8) {
+				message.addOption(SCOption.uriPath.rawValue, data: pathData)
+				client.sendCoAPMessage(message, hostName: host.hostName, port: UInt16(host.port))
+			}
 		}
+	}
+	
+	func getListOfHosts() -> [Host] {
+		var hosts : [Host] = [Host]()
+		for device in DeviceManager.shared.devices {
+			var containsHost = false
+			for host in hosts {
+				if host == device.host {
+					containsHost = true
+					break
+				}
+			}
+			if !containsHost {
+				hosts.append(device.host)
+			}
+		}
+		return hosts
 	}
 	
 	func deviceGet(device: Device, pathComponent: String) {
 		let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 01)!, type: .confirmable, payload: nil)
 		if let deviceUrl = String(device.id).data(using: .utf8),
 			let pathData = pathComponent.data(using: .utf8) {
-				let hostname = device.hostname
+				let hostname = device.host.hostName
 				message.addOption(SCOption.uriPath.rawValue, data: deviceUrl)
 				message.addOption(SCOption.uriPath.rawValue, data: pathData)
-				client.sendCoAPMessage(message, hostName: hostname, port: UInt16(device.port))
+				client.sendCoAPMessage(message, hostName: hostname, port: UInt16(device.host.port))
 		}
 	}
 	
-	func devicePut(device: Device, pathComponent: String, payload: Data) {
-		let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 03)!, type: .confirmable, payload: payload)
-		if let deviceUrl = String(device.id).data(using: .utf8),
-			let pathData = pathComponent.data(using: .utf8) {
-			let hostname = device.hostname
-			message.addOption(SCOption.uriPath.rawValue, data: deviceUrl)
-			message.addOption(SCOption.uriPath.rawValue, data: pathData)
-			client.sendCoAPMessage(message, hostName: hostname, port: UInt16(device.port))
+	func devicePut(device: Device, pathComponent: String) {
+		var payload = [String: Any]()
+		var newState = [String: Any]()
+		newState["isOn"] = !device.isOn
+		newState["state"] = device.state
+		payload["\(device.id)"] = newState
+		do {
+			let payloadData = try JSONSerialization.data(withJSONObject: payload, options: .sortedKeys)
+			let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 03)!, type: .confirmable, payload: payloadData)
+			if let deviceUrl = String(device.id).data(using: .utf8),
+				let pathData = pathComponent.data(using: .utf8) {
+				let hostname = device.host.hostName
+				message.addOption(SCOption.uriPath.rawValue, data: deviceUrl)
+				message.addOption(SCOption.uriPath.rawValue, data: pathData)
+				client.sendCoAPMessage(message, hostName: hostname, port: UInt16(device.host.port))
+			}
+		} catch {
+			print(error)
 		}
+		
 	}
 	
 }

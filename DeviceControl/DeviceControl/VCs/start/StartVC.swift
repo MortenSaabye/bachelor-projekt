@@ -28,6 +28,7 @@ class StartVC: UIViewController, CoAPManagerDelegate  {
 		super.viewWillAppear(animated)
 		CoAPManager.shared.delegate = self
 		CoAPManager.shared.checkStateForLocalDevices()
+		self.deviceCollectionView.reloadData()
 	}
 
     override func didReceiveMemoryWarning() {
@@ -50,11 +51,14 @@ class StartVC: UIViewController, CoAPManagerDelegate  {
 //	MARK: CoAPManagerDelegate
 	
 	func didReceiveResponse(payload: [String : Any]?) {
-		print("received message")
 		guard let states = payload?["result"] as? [[String : Any]] else {
 			print("could not get device from dict")
 			return
 		}
+		self.handleStatesForDevices(states: states)
+	}
+	
+	func handleStatesForDevices(states: [[String : Any]]) {
 		var indexToReload: Int = 0
 		for state in states {
 			for device in DeviceManager.shared.devices {
@@ -72,9 +76,9 @@ class StartVC: UIViewController, CoAPManagerDelegate  {
 				}
 				indexToReload += 1
 			}
+			indexToReload = 0 
 		}
 	}
-	
 }
 
 extension StartVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -91,9 +95,20 @@ extension StartVC: UICollectionViewDataSource, UICollectionViewDelegate, UIColle
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		let device = DeviceManager.shared.devices[indexPath.row]
 		let width = self.view.frame.width - 30
-		let height = CGFloat(150)
+		let height: CGFloat
+		if device.type == .Screen {
+			height = 200
+		} else {
+			height = 150
+		}
 		return CGSize(width: width, height: height)
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let device = DeviceManager.shared.devices[indexPath.row]
+		CoAPManager.shared.devicePut(device: device, pathComponent: "state")
 	}
 	
 }
