@@ -29,6 +29,15 @@ class DeviceManager {
 		}
 	}
 	
+	func updateStateFor(device: Device) {
+		if MQTTManager.shared.client != nil {
+			MQTTManager.shared.sendMessage(device: device)
+		} else {
+			CoAPManager.shared.devicePut(device: device, pathComponent: "state")
+		}
+		
+	}
+	
 	
 	func saveDevices() {
 		do {
@@ -48,7 +57,7 @@ class DeviceManager {
 	
 	func deviceAdded(device: Device) -> Bool {
 		for addedDevice in self.devices {
-			if addedDevice.id == device.id{
+			if addedDevice.id == device.id && device.host == addedDevice.host {
 				return true
 			}
 		}

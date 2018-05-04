@@ -58,7 +58,7 @@
                                 <color key="backgroundColor" red="0.1450980392" green="0.6705882353" blue="0.96862745100000003" alpha="0.11625107020547945" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.14509803921568626" green="0.6705882353" blue="0.96862745100000003" alpha="0.3025203339041096" colorSpace="custom" customColorSpace="sRGB"/>

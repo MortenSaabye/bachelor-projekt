@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import SystemConfiguration.CaptiveNetwork
 
 protocol WiFiDelegate {
     func didReceiveNetworkInfo(sender: WiFiManager, networks: [WiFiNetwork])
@@ -19,7 +20,18 @@ protocol WiFiDelegate {
 class WiFiManager {
     let baseURL: String = "http://raspberry.local:3000/"
     var delegate: WiFiDelegate?
+	let HOMENETWORK_KEY: String = "home-network"
     static let shared: WiFiManager = WiFiManager()
+	var homeNetwork: String? {
+		didSet {
+			UserDefaults.standard.set(self.homeNetwork, forKey: HOMENETWORK_KEY)
+		}
+	}
+	var isAtHome: Bool {
+		get {
+			return WiFiManager.getCurrentWiFi() != UserDefaults.standard.string(forKey: HOMENETWORK_KEY)
+		}
+	}
     func getAvailableWifi() {
         Alamofire.request("\(baseURL)getwifiinfo").validate().responseJSON { [weak self] (response) in
             guard let safeSelf = self else {
@@ -41,6 +53,39 @@ class WiFiManager {
             safeSelf.delegate?.didReceiveNetworkInfo(sender: safeSelf, networks: networks)
         }
     }
+	
+	static func getIPFromHostname(hostname: String) -> String? {
+		let host = CFHostCreateWithName(nil, hostname as CFString).takeRetainedValue()
+		CFHostStartInfoResolution(host, .addresses, nil)
+		var success: DarwinBoolean = false
+		if let addresses = CFHostGetAddressing(host, &success)?.takeUnretainedValue() as NSArray? {
+			for address in addresses {
+				guard let data = address as? NSData else {
+					return nil
+				}
+				let inetAddress: sockaddr_in = data.castToCPointer()
+				if inetAddress.sin_family == __uint8_t(AF_INET) {
+					if let ip = String(cString: inet_ntoa(inetAddress.sin_addr), encoding: .ascii) {
+						return(ip)
+					}
+				}
+			}
+		}
+		return nil
+	}
+	
+	static func getCurrentWiFi() -> String? {
+		var ssid: String?
+		if let interfaces = CNCopySupportedInterfaces() as NSArray? {
+			for interface in interfaces {
+				if let interfaceInfo = CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
+					ssid = interfaceInfo[kCNNetworkInfoKeySSID as String] as? String
+					break
+				}
+			}
+		}
+		return ssid
+	}
     
     func connectToWiFi(network: WiFiNetwork) {
         let parameters: Parameters = [
@@ -98,5 +143,13 @@ struct WiFiNetwork {
 		} else {
 			return nil
 		}
+	}
+}
+
+extension NSData {
+	func castToCPointer<T>() -> T {
+		let mem = UnsafeMutablePointer<T>.allocate(capacity: MemoryLayout<T.Type>.size)
+		self.getBytes(mem, length: MemoryLayout<T.Type>.size)
+		return mem.move()
 	}
 }

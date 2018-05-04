@@ -110,7 +110,7 @@ extension StartVC: UICollectionViewDataSource, UICollectionViewDelegate, UIColle
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let device = DeviceManager.shared.devices[indexPath.row]
-		CoAPManager.shared.devicePut(device: device, pathComponent: "state")
+		DeviceManager.shared.updateStateFor(device: device)
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

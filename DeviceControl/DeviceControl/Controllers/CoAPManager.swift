@@ -43,14 +43,15 @@ class CoAPManager: SCClientDelegate {
 	}
 	
 	func fetchDevicesFromService(service: NetService) {
-		guard let hostname = service.hostName else {
-			print("No hostname")
+		guard let hostname = service.hostName, let ipAddress = WiFiManager.getIPFromHostname(hostname: hostname) else {
+			print("could not get ip")
 			return
 		}
+		
 		let message = SCMessage(code: .init(rawValue: 1), type: .confirmable, payload: nil)
 		if let urlData = "devices".data(using: .utf8) {
 			message.addOption(SCOption.uriPath.rawValue, data: urlData)
-			client.sendCoAPMessage(message, hostName: hostname, port: UInt16(service.port))
+			client.sendCoAPMessage(message, hostName: ipAddress, port: UInt16(service.port))
 		}
 	}
 	
@@ -64,9 +65,9 @@ class CoAPManager: SCClientDelegate {
 				}
 			}
 			let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 01)!, type: .confirmable, payload: "\(payload)".data(using: .utf8))
-			if let pathData = "state".data(using: .utf8) {
+			if let pathData = "state".data(using: .utf8), let ipAddress = WiFiManager.getIPFromHostname(hostname: host.hostName) {
 				message.addOption(SCOption.uriPath.rawValue, data: pathData)
-				client.sendCoAPMessage(message, hostName: host.hostName, port: UInt16(host.port))
+				client.sendCoAPMessage(message, hostName: ipAddress, port: UInt16(host.port))
 			}
 		}
 	}
@@ -91,11 +92,11 @@ class CoAPManager: SCClientDelegate {
 	func deviceGet(device: Device, pathComponent: String) {
 		let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 01)!, type: .confirmable, payload: nil)
 		if let deviceUrl = String(device.id).data(using: .utf8),
-			let pathData = pathComponent.data(using: .utf8) {
-				let hostname = device.host.hostName
+			let pathData = pathComponent.data(using: .utf8),
+			let ipAddress = WiFiManager.getIPFromHostname(hostname: device.host.hostName) {
 				message.addOption(SCOption.uriPath.rawValue, data: deviceUrl)
 				message.addOption(SCOption.uriPath.rawValue, data: pathData)
-				client.sendCoAPMessage(message, hostName: hostname, port: UInt16(device.host.port))
+				client.sendCoAPMessage(message, hostName: ipAddress, port: UInt16(device.host.port))
 		}
 	}
 	
@@ -109,11 +110,11 @@ class CoAPManager: SCClientDelegate {
 			let payloadData = try JSONSerialization.data(withJSONObject: payload, options: .sortedKeys)
 			let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 03)!, type: .confirmable, payload: payloadData)
 			if let deviceUrl = String(device.id).data(using: .utf8),
-				let pathData = pathComponent.data(using: .utf8) {
-				let hostname = device.host.hostName
+				let pathData = pathComponent.data(using: .utf8),
+				let ipAddress = WiFiManager.getIPFromHostname(hostname: device.host.hostName) {
 				message.addOption(SCOption.uriPath.rawValue, data: deviceUrl)
 				message.addOption(SCOption.uriPath.rawValue, data: pathData)
-				client.sendCoAPMessage(message, hostName: hostname, port: UInt16(device.host.port))
+				client.sendCoAPMessage(message, hostName: ipAddress, port: UInt16(device.host.port))
 			}
 		} catch {
 			print(error)

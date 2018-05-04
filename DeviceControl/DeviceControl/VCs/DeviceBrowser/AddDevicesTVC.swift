@@ -25,6 +25,8 @@ class AddDevicesTVC: UITableViewController, CoAPManagerDelegate {
 		if let service = self.service {
 			CoAPManager.shared.fetchDevicesFromService(service: service)
 		}
+		let homeNetworkButton: UIBarButtonItem = UIBarButtonItem(title: "Make home network", style: .plain, target: self, action: #selector(self.addHomeNetwork))
+		self.navigationItem.rightBarButtonItem = homeNetworkButton
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,6 +79,11 @@ class AddDevicesTVC: UITableViewController, CoAPManagerDelegate {
 				}
 			}
 		}
+	}
+	
+	@objc func addHomeNetwork() {
+		let ssid = WiFiManager.getCurrentWiFi()
+		WiFiManager.shared.homeNetwork = ssid
 	}
 	
 	func getAddAction(device: Device) -> UITableViewRowAction {

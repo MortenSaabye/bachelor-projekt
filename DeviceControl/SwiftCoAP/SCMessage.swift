@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import CocoaAsyncSocket
 
 //MARK:
 //MARK: SC Coap Transport Layer Error Enumeration
@@ -34,7 +34,7 @@ protocol SCCoAPTransportLayerDelegate: class {
 
 protocol SCCoAPTransportLayerProtocol: class {
     //SCClient uses this property to assign itself as delegate
-	var transportLayerDelegate: SCCoAPTransportLayerDelegate! { get set }
+    weak var transportLayerDelegate: SCCoAPTransportLayerDelegate! { get set }
     
     //SClient calls this method when it wants to send CoAP data
     func sendCoAPData(_ data: Data, toHost host: String, port: UInt16) throws
@@ -97,7 +97,7 @@ extension SCCoAPUDPTransportLayer: SCCoAPTransportLayerProtocol {
 
 extension SCCoAPUDPTransportLayer: GCDAsyncUdpSocketDelegate {
     func udpSocket(_ sock: GCDAsyncUdpSocket!, didReceive data: Data!, fromAddress address: Data!, withFilterContext filterContext: Any!) {
-        transportLayerDelegate.transportLayerObject(self, didReceiveData: data, fromHost: GCDAsyncUdpSocket.host(fromAddress: address), port: GCDAsyncUdpSocket.port(fromAddress: address))
+		transportLayerDelegate.transportLayerObject(self, didReceiveData: data, fromHost: GCDAsyncUdpSocket.host(fromAddress: address)!, port: GCDAsyncUdpSocket.port(fromAddress: address))
     }
     
     func udpSocket(_ sock: GCDAsyncUdpSocket!, didNotSendDataWithTag tag: Int, dueToError error: Error!) {

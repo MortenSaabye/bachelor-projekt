@@ -13,7 +13,7 @@ class ServiceBrowserTCV: UITableViewController {
 	let CELL_HEIGHT: CGFloat = 80
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Find devices and gateways"
+        self.title = "Gateways"
 		let closeBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.closeServiceBrowser))
 		self.navigationItem.rightBarButtonItem = closeBtn
         self.serviceBrowser.delegate = self

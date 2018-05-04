@@ -8,17 +8,18 @@
 
 import Foundation
 import Alamofire
+import CocoaMQTT
 
 protocol MqttCredDelegate {
 	func addedMQTTCreds(sender: MQTTManager, success: Bool, done: Bool)
 }
 
-
 class MQTTManager {
 	var delegate: MqttCredDelegate?
 	static let shared: MQTTManager = MQTTManager()
 	let MQTT_INFO_PATH: String = "MQTTserver"
-	var server: MQTTServer!
+	var server: MQTTServer?
+	var client: CocoaMQTT?
 	
 	func loadServerInfo() {
 		do {
@@ -31,6 +32,26 @@ class MQTTManager {
 			self.server = server
 		} catch {
 			print(error)
+		}
+		if !WiFiManager.shared.isAtHome {
+			if let mqttServer = self.server {
+				let clientID = "CocoaMQTT-" + String(ProcessInfo().processIdentifier)
+				self.client = CocoaMQTT(clientID: clientID, host: mqttServer.server, port: UInt16(mqttServer.port))
+				self.client?.delegate = self
+				self.client?.username = mqttServer.user
+				self.client?.password = mqttServer.password
+				self.client?.keepAlive = 60
+				self.client?.allowUntrustCACertificate = true
+				self.client?.enableSSL = true
+				self.client?.connect()
+			}
+
+		}
+	}
+	
+	func subscribeToLocalDevices() {
+		for device in DeviceManager.shared.devices {
+			self.client?.subscribe(String(device.id))
 		}
 	}
 	
@@ -63,6 +84,15 @@ class MQTTManager {
 		}
 	}
 	
+	func sendMessage(device: Device) {
+		var payload = [String: Any]()
+		var newState = [String: Any]()
+		newState["isOn"] = !device.isOn
+		newState["state"] = device.state
+		payload["\(device.id)"] = newState
+		self.client?.publish(String(device.id), withString: "\(payload)", qos: .qos2)
+	}
+	
 	func getFileUrl() throws -> URL {
 		let fileManager = FileManager.default
 		let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
@@ -80,6 +110,57 @@ class MQTTManager {
 	}
 }
 
+extension MQTTManager : CocoaMQTTDelegate {
+	func mqtt(_ mqtt: CocoaMQTT, didConnect host: String, port: Int) {
+		print("mqtt did connect")
+	}
+	
+	func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
+		print("mqtt did connect")
+		self.subscribeToLocalDevices()
+	}
+	
+	func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
+		print("mqtt did publish message")
+	}
+	
+	func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
+		print("mqtt did publish ack")
+
+	}
+	
+	func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
+		print("mqtt did receive message")
+
+	}
+	
+	func mqtt(_ mqtt: CocoaMQTT, didReceive trust: SecTrust, completionHandler: @escaping (Bool) -> Void) {
+		completionHandler(true)
+	}
+	
+	func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topic: String) {
+		print("mqtt did subscribe")
+
+	}
+	
+	func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopic topic: String) {
+		print("mqtt did unsubscribe ")
+	}
+	
+	func mqttDidPing(_ mqtt: CocoaMQTT) {
+		print("mqtt did ping")
+	}
+	
+	func mqttDidReceivePong(_ mqtt: CocoaMQTT) {
+		print("mqtt did receive ping")
+
+	}
+	
+	func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
+		print("mqtt did disconnect \(err)")
+	}
+
+}
 
 
 class MQTTServer : NSObject, NSCoding {
