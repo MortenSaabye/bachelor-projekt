@@ -29,6 +29,7 @@ class StartVC: UIViewController  {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		DeviceManager.shared.delegate = self
+		self.deviceCollectionView.reloadData()
 	}
 
     override func didReceiveMemoryWarning() {

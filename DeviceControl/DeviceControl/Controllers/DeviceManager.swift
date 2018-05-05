@@ -148,10 +148,10 @@ extension DeviceManager : MessageManagerDelegate {
 	
 	func didReceiveMessage(message: [String : Any], sender: MessageManager) {
 		if let arr = message["devices"] as? [[String : Any]], let service = self.addDevicesDelegate?.service {
-			let foundDevices = [Device]()
+			var foundDevices = [Device]()
 			for obj in arr {
 				if let device = Device(dict: obj, service: service) {
-					devices.append(device)
+					foundDevices.append(device)
 				}
 			}
 			self.addDevicesDelegate?.didReceiveDevicesFromService(sender: self, devices: foundDevices)

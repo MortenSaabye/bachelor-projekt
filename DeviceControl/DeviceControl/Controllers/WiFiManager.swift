@@ -29,7 +29,7 @@ class WiFiManager {
 	}
 	var isAtHome: Bool {
 		get {
-			return WiFiManager.getCurrentWiFi() == UserDefaults.standard.string(forKey: HOMENETWORK_KEY)
+			return WiFiManager.getCurrentWiFi() != UserDefaults.standard.string(forKey: HOMENETWORK_KEY)
 		}
 	}
     func getAvailableWifi() {

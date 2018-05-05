@@ -76,9 +76,6 @@ class AddDevicesTVC: UITableViewController {
 		return "Devices available on \(self.service?.hostName ?? "unknown hostname")"
 	}
 	
-	func didReceiveResponse(payload: [String: Any]?) {
-		
-	}
 	
 	@objc func addHomeNetwork() {
 		let ssid = WiFiManager.getCurrentWiFi()
@@ -95,6 +92,7 @@ class AddDevicesTVC: UITableViewController {
 				if let name = alert.textFields?.first?.text {
 					let deviceToAdd = Device(device: device)
 					deviceToAdd.name = name
+					deviceToAdd.isConnected = true
 					DeviceManager.shared.devices.append(deviceToAdd)
 					self.tableView.reloadData()
 				}
@@ -104,7 +102,6 @@ class AddDevicesTVC: UITableViewController {
 			
 			alert.addAction(cancelAction)
 			alert.addAction(addAction)
-			
 			
 			self.present(alert, animated: true)
 		})
@@ -125,6 +122,7 @@ class AddDevicesTVC: UITableViewController {
 extension AddDevicesTVC : AddDevicesDelegate {
 	func didReceiveDevicesFromService(sender: DeviceManager, devices: [Device]) {
 		self.devices = devices
+		self.tableView.reloadData()
 	}
 	
 	
