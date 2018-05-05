@@ -14,8 +14,8 @@ protocol MqttCredDelegate {
 	func addedMQTTCreds(sender: MQTTManager, success: Bool, done: Bool)
 }
 
-class MQTTManager {
-	var delegate: MqttCredDelegate?
+class MQTTManager : MessageManager {
+	var credDelegate: MqttCredDelegate?
 	static let shared: MQTTManager = MQTTManager()
 	let MQTT_INFO_PATH: String = "MQTTserver"
 	var server: MQTTServer?
@@ -43,6 +43,7 @@ class MQTTManager {
 				self.client?.keepAlive = 60
 				self.client?.allowUntrustCACertificate = true
 				self.client?.enableSSL = true
+				self.client?.willMessage = CocoaMQTTWill(topic: "/will", message: "dieout")
 				self.client?.connect()
 			}
 
@@ -51,7 +52,7 @@ class MQTTManager {
 	
 	func subscribeToLocalDevices() {
 		for device in DeviceManager.shared.devices {
-			self.client?.subscribe(String(device.id))
+			self.client?.subscribe("\(String(device.id))/listen")
 		}
 	}
 	
@@ -62,7 +63,7 @@ class MQTTManager {
 			"password" : server.password,
 			"port" : server.port
 		]
-		let hosts = CoAPManager.shared.getListOfHosts()
+		let hosts = DeviceManager.shared.getListOfHosts()
 		var success: Bool = false
 		var done: Bool = false
 		var hostCount = 0
@@ -79,18 +80,30 @@ class MQTTManager {
 				if hostCount >= hosts.count {
 					done = true
 				}
-				self.delegate?.addedMQTTCreds(sender: self, success: success, done: done)
+				self.credDelegate?.addedMQTTCreds(sender: self, success: success, done: done)
 			}
 		}
 	}
 	
-	func sendMessage(device: Device) {
-		var payload = [String: Any]()
-		var newState = [String: Any]()
-		newState["isOn"] = !device.isOn
-		newState["state"] = device.state
-		payload["\(device.id)"] = newState
-		self.client?.publish(String(device.id), withString: "\(payload)", qos: .qos2)
+	override func sendMessage(with payload: [String : Any], to host: Host, path pathComponent: String) {
+		guard let data = self.getJSONDataFrom(dict: payload) else {
+			print("Could not get data MQTT")
+			return
+		}
+		let message = CocoaMQTTMessage(topic: pathComponent, payload: [UInt8](data))
+		self.client?.publish(message)
+	}
+	
+	override func sendMessage(with payload: Any, to host: Host, path pathComponent: String) {
+		if let data = "\(payload)".data(using: .utf8) {
+			let message = CocoaMQTTMessage(topic: pathComponent, payload: [UInt8](data))
+			self.client?.publish(message)
+		}
+	}
+	
+	override func sendMessage(to host: Host, path pathComponent: String) {
+		let message = CocoaMQTTMessage(topic: pathComponent, string: "")
+		self.client?.publish(message)
 	}
 	
 	func getFileUrl() throws -> URL {
@@ -113,34 +126,40 @@ class MQTTManager {
 extension MQTTManager : CocoaMQTTDelegate {
 	func mqtt(_ mqtt: CocoaMQTT, didConnect host: String, port: Int) {
 		print("mqtt did connect")
+		
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
-		print("mqtt did connect")
-		self.subscribeToLocalDevices()
+		print("mqtt did connect ack")
+		if ack == .accept {
+			self.subscribeToLocalDevices()
+			self.client?.subscribe("state/listen")
+			self.delegate?.clientDidConnect(sender: self)
+		}
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
-		print("mqtt did publish message")
+		print("mqtt did publish message \(message.topic) \(message.payload)")
+		
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
-		print("mqtt did publish ack")
+		print("mqtt did publish ack \(id)")
 
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
 		print("mqtt did receive message")
-
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didReceive trust: SecTrust, completionHandler: @escaping (Bool) -> Void) {
-		completionHandler(true)
+		self.parseDataAndNotifyDelegate(payload: Data(message.payload))
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topic: String) {
 		print("mqtt did subscribe")
 
+	}
+	
+	func mqtt(_ mqtt: CocoaMQTT, didReceive trust: SecTrust, completionHandler: @escaping (Bool) -> Void) {
+		completionHandler(true)
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopic topic: String) {
@@ -152,7 +171,7 @@ extension MQTTManager : CocoaMQTTDelegate {
 	}
 	
 	func mqttDidReceivePong(_ mqtt: CocoaMQTT) {
-		print("mqtt did receive ping")
+		print("mqtt did receive pong")
 
 	}
 	

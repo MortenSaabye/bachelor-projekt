@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddDevicesTVC: UITableViewController, CoAPManagerDelegate {
+class AddDevicesTVC: UITableViewController {
 	var service: NetService?
 	let CELL_HEIGHT: CGFloat = 80
 	var devices = [Device]() {
@@ -21,13 +21,18 @@ class AddDevicesTVC: UITableViewController, CoAPManagerDelegate {
         super.viewDidLoad()
 		self.title = "Add devices"
 		self.tableView.register(UINib(nibName: "AddDeviceCell", bundle: nil), forCellReuseIdentifier: ADD_DEVICE_CELL_IDENTIFIER)
-		CoAPManager.shared.delegate = self
 		if let service = self.service {
-			CoAPManager.shared.fetchDevicesFromService(service: service)
+			DeviceManager.shared.fetchDevicesFromService(service: service)
+			DeviceManager.shared.addDevicesDelegate = self
 		}
 		let homeNetworkButton: UIBarButtonItem = UIBarButtonItem(title: "Make home network", style: .plain, target: self, action: #selector(self.addHomeNetwork))
 		self.navigationItem.rightBarButtonItem = homeNetworkButton
     }
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		DeviceManager.shared.addDevicesDelegate = nil
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -72,13 +77,7 @@ class AddDevicesTVC: UITableViewController, CoAPManagerDelegate {
 	}
 	
 	func didReceiveResponse(payload: [String: Any]?) {
-		if let arr = payload?["result"] as? [[String : Any]], let service = self.service {
-			for obj in arr {
-				if let device = Device(dict: obj, service: service) {
-					self.devices.append(device)
-				}
-			}
-		}
+		
 	}
 	
 	@objc func addHomeNetwork() {
@@ -121,5 +120,13 @@ class AddDevicesTVC: UITableViewController, CoAPManagerDelegate {
 		moreRowAction.backgroundColor = .red
 		return moreRowAction
 	}
+}
+
+extension AddDevicesTVC : AddDevicesDelegate {
+	func didReceiveDevicesFromService(sender: DeviceManager, devices: [Device]) {
+		self.devices = devices
+	}
+	
+	
 }
 

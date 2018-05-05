@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StartVC: UIViewController, CoAPManagerDelegate  {
+class StartVC: UIViewController  {
 	@IBOutlet weak var deviceCollectionView: UICollectionView!
 	let DEVICE_CELL_IDENTIFIER: String = "DEVICE_CELL"
 	let FOOTER_VIEW_IDENTIFIER: String = "FooterView"
@@ -28,9 +28,7 @@ class StartVC: UIViewController, CoAPManagerDelegate  {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		CoAPManager.shared.delegate = self
-		CoAPManager.shared.checkStateForLocalDevices()
-		self.deviceCollectionView.reloadData()
+		DeviceManager.shared.delegate = self
 	}
 
     override func didReceiveMemoryWarning() {
@@ -49,37 +47,12 @@ class StartVC: UIViewController, CoAPManagerDelegate  {
 		let navVC = UINavigationController(rootViewController: browseVC)
         self.present(navVC, animated: true)
     }
-	
-//	MARK: CoAPManagerDelegate
-	
-	func didReceiveResponse(payload: [String : Any]?) {
-		guard let states = payload?["result"] as? [[String : Any]] else {
-			print("could not get device from dict")
-			return
-		}
-		self.handleStatesForDevices(states: states)
-	}
-	
-	func handleStatesForDevices(states: [[String : Any]]) {
-		var indexToReload: Int = 0
-		for state in states {
-			for device in DeviceManager.shared.devices {
-				if device.id == state["id"] as? Int {
-					guard let isOn = state["isOn"] as? Bool,
-						let state = state["state"] as? String else {
-							print("Could not find all properties in state")
-							return
-					}
-					device.isOn = isOn
-					device.state = state
-					device.isConnected = true
-					let indexPath = IndexPath(item: indexToReload, section: 0)
-					self.deviceCollectionView.reloadItems(at: [indexPath])
-				}
-				indexToReload += 1
-			}
-			indexToReload = 0 
-		}
+}
+
+extension StartVC: DeviceManagerDelegate {
+	func didUpdateDevice(device: Device, index: Int, sender: DeviceManager) {
+		let indexPath = IndexPath(item: index, section: 0)
+		self.deviceCollectionView.reloadItems(at: [indexPath])
 	}
 }
 

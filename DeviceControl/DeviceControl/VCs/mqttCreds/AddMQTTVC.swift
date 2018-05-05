@@ -42,7 +42,7 @@ class AddMQTTVC: UIViewController, MqttCredDelegate, UITextFieldDelegate {
 			print("Not all values present")
 			return
 		}
-		MQTTManager.shared.delegate = self
+		MQTTManager.shared.credDelegate = self
 		let serverInfo = MQTTServer(server: server, user: user, password: password, port: Int(port))
 		MQTTManager.shared.sendMQTTCreds(server: serverInfo)
 		MQTTManager.shared.saveMQTTInfo(server: serverInfo)

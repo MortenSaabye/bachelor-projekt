@@ -9,11 +9,21 @@
 import Foundation
 import UIKit
 
-class DeviceManager {
+protocol AddDevicesDelegate {
+	var service: NetService? { get set }
+	func didReceiveDevicesFromService(sender: DeviceManager, devices: [Device])
+}
+
+protocol DeviceManagerDelegate {
+	func didUpdateDevice(device: Device, index: Int, sender: DeviceManager)
+}
+
+class DeviceManager  {
 	var devices = [Device]()
 	let LOCALDEVICES_FILENAME: String = "local-devices"
 	static let shared: DeviceManager = DeviceManager()
-
+	var addDevicesDelegate: AddDevicesDelegate?
+	var delegate: DeviceManagerDelegate?
 	func loadDevices() {
 		do {
 			let fileToGet = try self.getFileUrl()
@@ -30,14 +40,54 @@ class DeviceManager {
 	}
 	
 	func updateStateFor(device: Device) {
-		if MQTTManager.shared.client != nil {
-			MQTTManager.shared.sendMessage(device: device)
-		} else {
-			CoAPManager.shared.devicePut(device: device, pathComponent: "state")
-		}
-		
+		var payload = [String: Any]()
+		payload["isOn"] = !device.isOn
+		payload["state"] = device.state
+		payload["id"] = device.id
+		let messageManager = MessageManager.getMessageManager(delegate: self)
+		messageManager.sendMessage(with: payload, to: device.host, path: "\(device.id)/state")
 	}
 	
+	func checkStateForLocalDevices() {
+		let hosts = self.getListOfHosts()
+		let messageManager = MessageManager.getMessageManager(delegate: self)
+		for host in hosts {
+			var payload = [String]()
+			for device in DeviceManager.shared.devices {
+				if device.host == host {
+					payload.append(String(device.id))
+				}
+			}
+			messageManager.sendMessage(with: payload, to: host, path: "state")
+		}
+	}
+	
+	func getListOfHosts() -> [Host] {
+		var hosts : [Host] = [Host]()
+		for device in DeviceManager.shared.devices {
+			var containsHost = false
+			for host in hosts {
+				if host == device.host {
+					containsHost = true
+					break
+				}
+			}
+			if !containsHost {
+				hosts.append(device.host)
+			}
+		}
+		return hosts
+	}
+	
+	func fetchDevicesFromService(service: NetService) {
+		let messageManager: MessageManager =  MessageManager.getMessageManager(delegate: self)
+		guard let hostname = service.hostName else {
+			print("No hostname in Devicemanager")
+			return
+		}
+		let host: Host = Host(port: service.port, hostName: hostname)
+		messageManager.sendMessage(to: host, path: "devices")
+	}
 	
 	func saveDevices() {
 		do {
@@ -73,112 +123,61 @@ class DeviceManager {
 			}
 		}
 	}
+	
+	func test(device: Device) {
+		let messageManager: MessageManager = MessageManager.getMessageManager(delegate: self)
+		messageManager.sendMessage(to: device.host, path: "\(device.id)/test")
+	}
+	
+	func getDeviceFrom(id: Int) -> Device? {
+		return self.devices.first(where: { (device) -> Bool in
+			device.id == id
+		})
+	}
+	
+	func getIndexForDevice(device: Device) -> Int? {
+		return self.devices.index(of: device)
+	}
+	
 }
 
+extension DeviceManager : MessageManagerDelegate {
+	func clientDidConnect(sender: MessageManager) {
+		self.checkStateForLocalDevices()
+	}
+	
+	func didReceiveMessage(message: [String : Any], sender: MessageManager) {
+		if let arr = message["devices"] as? [[String : Any]], let service = self.addDevicesDelegate?.service {
+			let foundDevices = [Device]()
+			for obj in arr {
+				if let device = Device(dict: obj, service: service) {
+					devices.append(device)
+				}
+			}
+			self.addDevicesDelegate?.didReceiveDevicesFromService(sender: self, devices: foundDevices)
+		}
+		if let dict = message["result"] as? [String : Any] {
+			self.sendDeviceToDelegate(dict: dict)
+		}
+		if let arr = message["result"] as? [[String : Any]] {
+			for dict in arr {
+				self.sendDeviceToDelegate(dict: dict)
+			}
+		}
+	}
+	
+	
 
-class Device : NSObject, NSCoding {
-	init(id: Int, type: String, name: String, host: Host, isOn: Bool, state: String) {
-		self.name = name
-		self.type = DeviceType.typeFromString(string: type)
-		self.host = host
-		self.isOn = isOn
-		self.state = state
-		self.id = id
-	}
-	
-	convenience init?(dict: [String: Any], service: NetService) {
-		guard let typestring = dict["type"] as? String,
-			let id = dict["id"] as? Int,
-			let name = dict["name"] as? String,
-			let isOn = dict["isOn"] as? Bool,
-			let state = dict["state"] as? String,
-			let hostname = service.hostName else {
-				print("Not all values present")
-				return nil
-		}
-		let host: Host = Host(port: service.port, hostName: hostname)
-		self.init(id: id, type: typestring, name: name, host: host, isOn: isOn, state: state)
-	}
-	
-	init(device: Device) {
-		self.id = device.id
-		self.host = device.host
-		self.name = device.name
-		self.type = device.type
-	}
-	
-	func encode(with aCoder: NSCoder) {
-		aCoder.encode(self.type.stringRepresentation(), forKey: "type")
-		aCoder.encode(self.name, forKey: "name")
-		aCoder.encode(self.host.hostName, forKey: "hostname")
-		aCoder.encode(self.host.port, forKey: "port")
-		aCoder.encode(self.id, forKey: "id")
-	}
-	
-	required convenience init?(coder aDecoder: NSCoder) {
-		guard let typestring = aDecoder.decodeObject(forKey: "type") as? String,
-			let name = aDecoder.decodeObject(forKey: "name") as? String,
-			let hostname = aDecoder.decodeObject(forKey: "hostname") as? String else {
-				return nil
-		}
-		let port = aDecoder.decodeInteger(forKey: "port")
-		let id = aDecoder.decodeInteger(forKey: "id")
-		let host = Host(port: port, hostName: hostname)
-		self.init(id: id, type: typestring, name: name, host: host, isOn: false, state: "")
-	}
-	let id: Int
-	let host: Host
-	let type: DeviceType
-	var name: String
-	var state: String = ""
-	var isOn: Bool = false
-	var isConnected: Bool = false
-}
-
-struct Host: Equatable {
-	let port: Int
-	let hostName: String
-	
-	static func ==(lhs: Host, rhs: Host) -> Bool {
-		return lhs.hostName == rhs.hostName && lhs.port == rhs.port
-	}
-}
-
-enum DeviceType {
-	case Light
-	case Screen
-	case Other
-	static func typeFromString(string: String) -> DeviceType {
-		switch string {
-		case "light":
-			return self.Light
-		case "screen":
-			return self.Screen
-		default:
-			return self.Other
+	func sendDeviceToDelegate(dict: [String: Any]) {
+		if let id = dict["id"] as? Int,
+		let device = self.getDeviceFrom(id: id),
+		let isOn = dict["isOn"] as? Bool,
+		let state = dict["state"] as? String,
+		let index = self.getIndexForDevice(device: device) {
+			device.isOn = isOn
+			device.state = state
+			device.isConnected = true
+			self.delegate?.didUpdateDevice(device: device, index: index, sender: self)
 		}
 	}
-	
-	func getIcon() -> UIImage {
-		switch self {
-		case .Light:
-			return #imageLiteral(resourceName: "light")
-		case .Screen:
-			return #imageLiteral(resourceName: "screen")
-		default:
-			return #imageLiteral(resourceName: "other")
-		}
-	}
-	
-	func stringRepresentation() -> String {
-		switch self {
-		case .Light:
-			return "light"
-		case .Screen:
-			return "screen"
-		default:
-			return "other"
-		}
-	}
-	
 }

@@ -20,9 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.rootViewController = navVC
         self.window?.makeKeyAndVisible()
-		CoAPManager.shared.startClient()
 		DeviceManager.shared.loadDevices()
 		MQTTManager.shared.loadServerInfo()
+		if !WiFiManager.shared.isAtHome {
+			MQTTManager.shared.delegate = DeviceManager.shared
+		} else {
+			DeviceManager.shared.checkStateForLocalDevices()
+		}
         return true
     }
 

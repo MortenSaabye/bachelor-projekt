@@ -21,6 +21,8 @@
 		9CE57E10209868DE00B0D55A /* AddDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CE57E0E209868DE00B0D55A /* AddDeviceCell.xib */; };
 		9CE57E12209896A800B0D55A /* CoAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE57E11209896A800B0D55A /* CoAPManager.swift */; };
 		9CE57E142099910500B0D55A /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE57E132099910500B0D55A /* DeviceManager.swift */; };
+		9CEC55AB209DBA33007A637B /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEC55AA209DBA33007A637B /* MessageManager.swift */; };
+		9CEC55AF209DD873007A637B /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEC55AE209DD873007A637B /* Device.swift */; };
 		9CF9FAA9209C4EE400B55929 /* SCMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF9FAA4209C4EE300B55929 /* SCMessage.swift */; };
 		9CF9FAAA209C4EE400B55929 /* SCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF9FAA5209C4EE300B55929 /* SCClient.swift */; };
 		9CF9FAAC209C4EE400B55929 /* SCServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF9FAA8209C4EE400B55929 /* SCServer.swift */; };
@@ -83,6 +85,8 @@
 		9CE57E0E209868DE00B0D55A /* AddDeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDeviceCell.xib; sourceTree = "<group>"; };
 		9CE57E11209896A800B0D55A /* CoAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoAPManager.swift; sourceTree = "<group>"; };
 		9CE57E132099910500B0D55A /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
+		9CEC55AA209DBA33007A637B /* MessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
+		9CEC55AE209DD873007A637B /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		9CF9FAA4209C4EE300B55929 /* SCMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCMessage.swift; sourceTree = "<group>"; };
 		9CF9FAA5209C4EE300B55929 /* SCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCClient.swift; sourceTree = "<group>"; };
 		9CF9FAA8209C4EE400B55929 /* SCServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCServer.swift; sourceTree = "<group>"; };
@@ -278,6 +282,8 @@
 				9CE57E11209896A800B0D55A /* CoAPManager.swift */,
 				9CE57E132099910500B0D55A /* DeviceManager.swift */,
 				9C3F60E4209B469500EE5723 /* MQTTManager.swift */,
+				9CEC55AA209DBA33007A637B /* MessageManager.swift */,
+				9CEC55AE209DD873007A637B /* Device.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -619,6 +625,7 @@
 				9C3F60E2209B2BC500EE5723 /* AddMQTTVC.swift in Sources */,
 				DF0DB3BF208E330B00866D3A /* ServiceBrowserTCV.swift in Sources */,
 				9CF9FAAA209C4EE400B55929 /* SCClient.swift in Sources */,
+				9CEC55AB209DBA33007A637B /* MessageManager.swift in Sources */,
 				DFC0AFA7208DE0960088B075 /* DeviceSetupVC.swift in Sources */,
 				9CE57E0F209868DE00B0D55A /* AddDeviceCell.swift in Sources */,
 				9CF9FAAC209C4EE400B55929 /* SCServer.swift in Sources */,
@@ -631,6 +638,7 @@
 				DFC0AFA3208DE0870088B075 /* StartVC.swift in Sources */,
 				9C3115D8209762F0003A443E /* DeviceCell.swift in Sources */,
 				9C3F60DD209B21A000EE5723 /* FooterView.swift in Sources */,
+				9CEC55AF209DD873007A637B /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -51,6 +51,6 @@ class AddDeviceCell: UITableViewCell {
 			print("No device")
 			return
 		}
-		CoAPManager.shared.deviceGet(device: device, pathComponent: "test")
+		DeviceManager.shared.test(device: device)
 	}
 }
