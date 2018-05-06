@@ -56,12 +56,10 @@ class MQTTManager : MessageManager {
 		}
 	}
 	
-	func sendMQTTCreds(server: MQTTServer){
+	func sendMQTTCreds(user: String, password: String){
 		let parameters: Parameters = [
-			"server" : server.server,
-			"user" : server.user,
-			"password" : server.password,
-			"port" : server.port
+			"username" : user,
+			"password" : password
 		]
 		let hosts = DeviceManager.shared.getListOfHosts()
 		var success: Bool = false
@@ -69,13 +67,21 @@ class MQTTManager : MessageManager {
 		var hostCount = 0
 		for host in hosts {
 			Alamofire.request("http://\(host.hostName):3000/addmqtt", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { (response) in
-				guard let JSONValue = response.result.value as? [String: Any], let reqSuccess = JSONValue["success"] as? Bool else {
+				guard let jsonString = response.result.value as? String,
+				let JSONValue = self.convertToDictionary(text: jsonString),
+				let reqSuccess = JSONValue["success"] as? Bool,
+				let serverDict = JSONValue["server"] as? [String : Any] else {
 					print("Could not get JSON")
 					return
 				}
 				if reqSuccess {
 					success = true
 				}
+				
+				if let serverInfo = MQTTServer(dict: serverDict) {
+					self.saveMQTTInfo(server: serverInfo)
+				}
+				
 				hostCount += 1
 				if hostCount >= hosts.count {
 					done = true
@@ -83,6 +89,17 @@ class MQTTManager : MessageManager {
 				self.credDelegate?.addedMQTTCreds(sender: self, success: success, done: done)
 			}
 		}
+	}
+	
+	func convertToDictionary(text: String) -> [String: Any]? {
+		if let data = text.data(using: .utf8) {
+			do {
+				return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+			} catch {
+				print(error.localizedDescription)
+			}
+		}
+		return nil
 	}
 	
 	override func sendMessage(with payload: [String : Any], to host: Host, path pathComponent: String) {
@@ -207,6 +224,18 @@ class MQTTServer : NSObject, NSCoding {
 		self.user = user
 		self.password = password
 		self.port = port
+	}
+	
+	convenience init?(dict: [String : Any]) {
+		guard let server = dict["server"] as? String,
+		let port = dict["port"] as? Int,
+		let user = dict["user"] as? String,
+		let password = dict["password"] as? String else {
+			print("Not all values present for MQTTServer")
+			return nil
+		}
+		self.init(server: server, user: user, password: password, port: port)
+
 	}
 	
 	let server: String

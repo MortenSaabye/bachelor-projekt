@@ -9,26 +9,20 @@
 import UIKit
 
 class AddMQTTVC: UIViewController, MqttCredDelegate, UITextFieldDelegate {
-	@IBOutlet weak var serverTextField: UITextField!
 	@IBOutlet weak var userTextfield: UITextField!
 	@IBOutlet weak var passwordTextField: UITextField!
-	@IBOutlet weak var portTextField: UITextField!
 	override func viewDidLoad() {
         super.viewDidLoad()
 		self.title = "Add MQTT credentials"
         // Do any additional setup after loading the view.
 		let closeBtn = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(self.dismissView))
 		self.navigationItem.rightBarButtonItem = closeBtn
-		self.serverTextField.delegate = self
 		self.userTextfield.delegate = self
 		self.passwordTextField.delegate = self
-		self.portTextField.delegate = self
 		
 		if let mqttserver = MQTTManager.shared.server {
-			self.serverTextField.text = mqttserver.server
 			self.userTextfield.text = mqttserver.user
 			self.passwordTextField.text = mqttserver.password
-			self.portTextField.text = String(mqttserver.port)
 		}
     }
 
@@ -38,14 +32,12 @@ class AddMQTTVC: UIViewController, MqttCredDelegate, UITextFieldDelegate {
     }
 	
 	@IBAction func submitAction(_ sender: Any) {
-		guard let server = serverTextField.text, let user = userTextfield.text, let password = passwordTextField.text, let portString = portTextField.text, let port = Int(portString) else {
+		guard let user = userTextfield.text, let password = passwordTextField.text else {
 			print("Not all values present")
 			return
 		}
 		MQTTManager.shared.credDelegate = self
-		let serverInfo = MQTTServer(server: server, user: user, password: password, port: Int(port))
-		MQTTManager.shared.sendMQTTCreds(server: serverInfo)
-		MQTTManager.shared.saveMQTTInfo(server: serverInfo)
+		MQTTManager.shared.sendMQTTCreds(user: user, password: password)
 	}
 	
 	@objc func dismissView() {

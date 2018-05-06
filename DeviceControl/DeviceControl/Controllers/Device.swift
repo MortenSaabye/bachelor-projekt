@@ -38,6 +38,8 @@ class Device : NSObject, NSCoding {
 		self.host = device.host
 		self.name = device.name
 		self.type = device.type
+		self.isOn = device.isOn
+		self.state = device.state
 	}
 	
 	func encode(with aCoder: NSCoder) {
