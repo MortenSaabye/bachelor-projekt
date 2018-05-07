@@ -25,8 +25,6 @@ class AddDevicesTVC: UITableViewController {
 			DeviceManager.shared.fetchDevicesFromService(service: service)
 			DeviceManager.shared.addDevicesDelegate = self
 		}
-		let homeNetworkButton: UIBarButtonItem = UIBarButtonItem(title: "Make home network", style: .plain, target: self, action: #selector(self.addHomeNetwork))
-		self.navigationItem.rightBarButtonItem = homeNetworkButton
     }
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -74,12 +72,6 @@ class AddDevicesTVC: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return "Devices available on \(self.service?.hostName ?? "unknown hostname")"
-	}
-	
-	
-	@objc func addHomeNetwork() {
-		let ssid = WiFiManager.getCurrentWiFi()
-		WiFiManager.shared.homeNetwork = ssid
 	}
 	
 	func getAddAction(device: Device) -> UITableViewRowAction {

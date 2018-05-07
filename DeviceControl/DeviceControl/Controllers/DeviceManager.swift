@@ -16,6 +16,7 @@ protocol AddDevicesDelegate {
 
 protocol DeviceManagerDelegate {
 	func didUpdateDevice(device: Device, index: Int, sender: DeviceManager)
+	func didRemoveDevice(at index: Int, sender: DeviceManager)
 }
 
 class DeviceManager  {
@@ -119,6 +120,18 @@ class DeviceManager  {
 			if addedDevice.id == device.id{
 				if let index = self.devices.index(of: addedDevice) {
 					self.devices.remove(at: index)
+					self.delegate?.didRemoveDevice(at: index, sender: self)
+				}
+			}
+		}
+	}
+	
+	func removeDevice(id: Int) {
+		for addedDevice in self.devices {
+			if addedDevice.id == id {
+				if let index = self.devices.index(of: addedDevice) {
+					self.devices.remove(at: index)
+					self.delegate?.didRemoveDevice(at: index, sender: self)
 				}
 			}
 		}

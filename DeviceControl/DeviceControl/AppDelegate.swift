@@ -22,9 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
 		DeviceManager.shared.loadDevices()
 		MQTTManager.shared.loadServerInfo()
-		if !WiFiManager.shared.isAtHome {
-			MQTTManager.shared.delegate = DeviceManager.shared
-		} else {
+		MQTTManager.shared.delegate = DeviceManager.shared
+		if WiFiManager.shared.isAtHome {
 			DeviceManager.shared.checkStateForLocalDevices()
 		}
         return true

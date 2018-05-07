@@ -33,20 +33,17 @@ class MQTTManager : MessageManager {
 		} catch {
 			print(error)
 		}
-		if !WiFiManager.shared.isAtHome {
-			if let mqttServer = self.server {
-				let clientID = "CocoaMQTT-" + String(ProcessInfo().processIdentifier)
-				self.client = CocoaMQTT(clientID: clientID, host: mqttServer.server, port: UInt16(mqttServer.port))
-				self.client?.delegate = self
-				self.client?.username = mqttServer.user
-				self.client?.password = mqttServer.password
-				self.client?.keepAlive = 60
-				self.client?.allowUntrustCACertificate = true
-				self.client?.enableSSL = true
-				self.client?.willMessage = CocoaMQTTWill(topic: "/will", message: "dieout")
-				self.client?.connect()
-			}
-
+		if let mqttServer = self.server {
+			let clientID = "CocoaMQTT-" + String(ProcessInfo().processIdentifier)
+			self.client = CocoaMQTT(clientID: clientID, host: mqttServer.server, port: UInt16(mqttServer.port))
+			self.client?.delegate = self
+			self.client?.username = mqttServer.user
+			self.client?.password = mqttServer.password
+			self.client?.keepAlive = 60
+			self.client?.allowUntrustCACertificate = true
+			self.client?.enableSSL = true
+			self.client?.willMessage = CocoaMQTTWill(topic: "/will", message: "dieout")
+			self.client?.connect()
 		}
 	}
 	

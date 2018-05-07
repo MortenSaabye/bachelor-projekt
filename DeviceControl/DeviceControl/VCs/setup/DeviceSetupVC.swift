@@ -92,6 +92,7 @@ class DeviceSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
         self.selectedNetwork = networks[indexPath.row]
         self.SSIDLabel.text = selectedNetwork?.ssid
+		WiFiManager.shared.homeNetwork = selectedNetwork?.ssid
         self.scrollToPage(pageNumber: 3)
     }
     

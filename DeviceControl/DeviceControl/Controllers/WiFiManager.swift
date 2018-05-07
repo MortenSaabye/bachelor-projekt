@@ -15,8 +15,6 @@ protocol WiFiDelegate {
     func didConnectToNetwork(sender: WiFiManager, success: Bool, error: String?)
 }
 
-
-
 class WiFiManager {
     let baseURL: String = "http://raspberry.local:3000/"
     var delegate: WiFiDelegate?
@@ -29,7 +27,7 @@ class WiFiManager {
 	}
 	var isAtHome: Bool {
 		get {
-			return WiFiManager.getCurrentWiFi() != homeNetwork
+			return WiFiManager.getCurrentWiFi() == homeNetwork
 		}
 	}
     func getAvailableWifi() {

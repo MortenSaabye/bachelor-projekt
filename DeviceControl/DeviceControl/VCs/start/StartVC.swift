@@ -24,6 +24,7 @@ class StartVC: UIViewController  {
 		self.deviceCollectionView.register(UINib(nibName: "FooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: FOOTER_VIEW_IDENTIFIER)
 		self.deviceCollectionView.delegate = self
 		self.deviceCollectionView.dataSource = self
+	
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -51,10 +52,17 @@ class StartVC: UIViewController  {
 }
 
 extension StartVC: DeviceManagerDelegate {
+	func didRemoveDevice(at index: Int, sender: DeviceManager) {
+		let indexPath = IndexPath(item: index, section: 0)
+		self.deviceCollectionView.deleteItems(at: [indexPath])
+	}
+	
 	func didUpdateDevice(device: Device, index: Int, sender: DeviceManager) {
 		let indexPath = IndexPath(item: index, section: 0)
 		self.deviceCollectionView.reloadItems(at: [indexPath])
 	}
+	
+	
 }
 
 extension StartVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {

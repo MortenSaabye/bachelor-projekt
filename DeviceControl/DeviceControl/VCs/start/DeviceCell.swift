@@ -25,6 +25,8 @@ class DeviceCell: UICollectionViewCell, UITextFieldDelegate {
 	var deviceId: Int?
 	
 	func setupCell(device: Device) {
+		let gesture = UILongPressGestureRecognizer(target: self, action: #selector(self.removeDevice))
+		self.container.addGestureRecognizer(gesture)
 		self.nameLabel.text = device.name
 		self.iconView?.image = device.type.getIcon()
 		self.pathLabel.text = "coap://\(device.host.hostName):\(device.host.port)/\(device.id)"
@@ -44,6 +46,12 @@ class DeviceCell: UICollectionViewCell, UITextFieldDelegate {
 			self.stateTextfield.text = ""
 		}
 		
+	}
+	
+	@objc func removeDevice(device: Device) {
+		if let id = self .deviceId {
+			DeviceManager.shared.removeDevice(id: id)
+		}
 	}
 	
 	func setNotConnected() {
