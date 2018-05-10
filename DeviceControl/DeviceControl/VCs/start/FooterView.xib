@@ -20,7 +20,7 @@
                     <rect key="frame" x="15" y="10" width="320" height="158"/>
                     <color key="backgroundColor" name="bulbasaur"/>
                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                    <state key="normal" title="Setup remote control">
+                    <state key="normal" title="Manage remote control">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>

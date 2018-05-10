@@ -12,7 +12,7 @@ class AddDeviceCell: UITableViewCell {
 	var device: Device? {
 		didSet {
 			self.namelabel.text = device?.name
-			self.imageView?.image = device?.type.getIcon()
+			self.imageView?.image = device?.getIcon()
 			self.alreadyAddedLabel.text = self.isOnStart ? "Already on start" : "Not added"
 		}
 	}

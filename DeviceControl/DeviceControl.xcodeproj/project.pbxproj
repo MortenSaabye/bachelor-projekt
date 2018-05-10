@@ -10,6 +10,8 @@
 		48F36F19A0257A5E29AA37D1 /* Pods_DeviceControlTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B703AE2406583BF4F38AEB /* Pods_DeviceControlTests.framework */; };
 		9C3115D8209762F0003A443E /* DeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3115D6209762F0003A443E /* DeviceCell.swift */; };
 		9C3115D9209762F0003A443E /* DeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3115D7209762F0003A443E /* DeviceCell.xib */; };
+		9C37010020A1C03B00C66FE1 /* extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3700FF20A1C03B00C66FE1 /* extentions.swift */; };
+		9C37010220A1DEC200C66FE1 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C37010120A1DEC200C66FE1 /* Debouncer.swift */; };
 		9C3F60DD209B21A000EE5723 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F60DB209B21A000EE5723 /* FooterView.swift */; };
 		9C3F60DE209B21A000EE5723 /* FooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3F60DC209B21A000EE5723 /* FooterView.xib */; };
 		9C3F60E2209B2BC500EE5723 /* AddMQTTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F60E0209B2BC500EE5723 /* AddMQTTVC.swift */; };
@@ -74,6 +76,8 @@
 		95909309D04EE6F8587E1BD2 /* Pods-DeviceControlUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeviceControlUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeviceControlUITests/Pods-DeviceControlUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C3115D6209762F0003A443E /* DeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCell.swift; sourceTree = "<group>"; };
 		9C3115D7209762F0003A443E /* DeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceCell.xib; sourceTree = "<group>"; };
+		9C3700FF20A1C03B00C66FE1 /* extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extentions.swift; sourceTree = "<group>"; };
+		9C37010120A1DEC200C66FE1 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		9C3F60DB209B21A000EE5723 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		9C3F60DC209B21A000EE5723 /* FooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FooterView.xib; sourceTree = "<group>"; };
 		9C3F60E0209B2BC500EE5723 /* AddMQTTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMQTTVC.swift; sourceTree = "<group>"; };
@@ -241,6 +245,8 @@
 				DF31D993208DDF7100A5A6BF /* Assets.xcassets */,
 				DF31D995208DDF7100A5A6BF /* LaunchScreen.storyboard */,
 				DF31D998208DDF7100A5A6BF /* Info.plist */,
+				9C3700FF20A1C03B00C66FE1 /* extentions.swift */,
+				9C37010120A1DEC200C66FE1 /* Debouncer.swift */,
 			);
 			path = DeviceControl;
 			sourceTree = "<group>";
@@ -622,11 +628,13 @@
 				9CE57E0B209867ED00B0D55A /* AddDevicesTVC.swift in Sources */,
 				9C3F60E5209B469500EE5723 /* MQTTManager.swift in Sources */,
 				DFC0AFAD208E13BB0088B075 /* WiFiManager.swift in Sources */,
+				9C37010020A1C03B00C66FE1 /* extentions.swift in Sources */,
 				9C3F60E2209B2BC500EE5723 /* AddMQTTVC.swift in Sources */,
 				DF0DB3BF208E330B00866D3A /* ServiceBrowserTCV.swift in Sources */,
 				9CF9FAAA209C4EE400B55929 /* SCClient.swift in Sources */,
 				9CEC55AB209DBA33007A637B /* MessageManager.swift in Sources */,
 				DFC0AFA7208DE0960088B075 /* DeviceSetupVC.swift in Sources */,
+				9C37010220A1DEC200C66FE1 /* Debouncer.swift in Sources */,
 				9CE57E0F209868DE00B0D55A /* AddDeviceCell.swift in Sources */,
 				9CF9FAAC209C4EE400B55929 /* SCServer.swift in Sources */,
 				9CE57E12209896A800B0D55A /* CoAPManager.swift in Sources */,

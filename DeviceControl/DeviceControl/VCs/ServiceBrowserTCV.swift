@@ -17,11 +17,11 @@ class ServiceBrowserTCV: UITableViewController {
 		let closeBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.closeServiceBrowser))
 		self.navigationItem.rightBarButtonItem = closeBtn
         self.serviceBrowser.delegate = self
-        self.startBrowsing(all: true)
+        self.startBrowsing()
         self.tableView.register(UINib(nibName: "ServiceCell", bundle: nil), forCellReuseIdentifier: SERVICE_CELL_IDENTIFIER)
     }
 
-	var serviceTypes: String = ""
+	var serviceType: ServiceType = .deviceControl
     var services = [NetService]()
 	
 	var resolvedServices = [NetService]() {
@@ -36,13 +36,11 @@ class ServiceBrowserTCV: UITableViewController {
     
 	let serviceBrowser = NetServiceBrowser()
 
-    func startBrowsing(all: Bool){
+    func startBrowsing(){
         self.serviceBrowser.stop()
         self.services = []
         self.serviceBrowser.delegate = self
-        if all {
-            self.serviceBrowser.searchForServices(ofType: serviceTypes, inDomain: "local")
-        }
+		self.serviceBrowser.searchForServices(ofType: serviceType.rawValue, inDomain: "local")
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -117,5 +115,9 @@ extension ServiceBrowserTCV: NetServiceBrowserDelegate, NetServiceDelegate {
             }
         }
     }
-    
+}
+
+enum ServiceType : String {
+	case deviceControl = "_devicecontrol._udp"
+	case IKEA = "_coap._udp"
 }

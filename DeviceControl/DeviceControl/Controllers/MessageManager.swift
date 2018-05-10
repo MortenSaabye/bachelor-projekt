@@ -19,7 +19,7 @@ class MessageManager {
 	var payload: [String : Any]?
 	var delegate: MessageManagerDelegate?
 	
-	func sendMessage(with payload: [String : Any], to host: Host, path pathComponent: String) {
+	func sendMessage(with payload: [String : Any], to host: Host, path pathComponent: String, confirmable: Bool = true) {
 		//OVERRIDE THIS IN SUBCLASS
 	}
 	

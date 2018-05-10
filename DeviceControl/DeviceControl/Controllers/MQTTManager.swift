@@ -99,7 +99,7 @@ class MQTTManager : MessageManager {
 		return nil
 	}
 	
-	override func sendMessage(with payload: [String : Any], to host: Host, path pathComponent: String) {
+	override func sendMessage(with payload: [String : Any], to host: Host, path pathComponent: String, confirmable: Bool = true) {
 		guard let data = self.getJSONDataFrom(dict: payload) else {
 			print("Could not get data MQTT")
 			return

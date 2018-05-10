@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StartVC" customModule="DeviceControl" customModuleProvider="target">
             <connections>
                 <outlet property="deviceCollectionView" destination="xk1-a4-BBJ" id="0wY-jd-XCM"/>
+                <outlet property="messageView" destination="Poo-Fw-jdV" id="cQU-Ha-b3K"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="Sea-fX-QF4"/>
             </connections>
         </placeholder>
@@ -21,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="xk1-a4-BBJ">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="etD-64-Mj8">
                         <size key="itemSize" width="50" height="50"/>
@@ -30,16 +31,46 @@
                         <inset key="sectionInset" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Poo-Fw-jdV">
+                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap &quot;Setup&quot; to set up your device or add an already set up device by tapping &quot;Add device&quot;." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="an0-Dx-ZJ5">
+                            <rect key="frame" x="16" y="127" width="343" height="75.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no devices configured. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rvf-l3-Z9Q">
+                            <rect key="frame" x="16" y="20" width="343" height="67"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="an0-Dx-ZJ5" firstAttribute="top" secondItem="Rvf-l3-Z9Q" secondAttribute="bottom" constant="40" id="JH1-eq-XgB"/>
+                        <constraint firstAttribute="trailing" secondItem="an0-Dx-ZJ5" secondAttribute="trailing" constant="16" id="WEy-Ke-duV"/>
+                        <constraint firstItem="Rvf-l3-Z9Q" firstAttribute="top" secondItem="Poo-Fw-jdV" secondAttribute="top" constant="20" id="gMr-64-rIv"/>
+                        <constraint firstItem="an0-Dx-ZJ5" firstAttribute="leading" secondItem="Poo-Fw-jdV" secondAttribute="leading" constant="16" id="mk7-Yx-FM0"/>
+                        <constraint firstItem="Rvf-l3-Z9Q" firstAttribute="leading" secondItem="Poo-Fw-jdV" secondAttribute="leading" constant="16" id="wqL-Ba-9Gw"/>
+                        <constraint firstAttribute="trailing" secondItem="Rvf-l3-Z9Q" secondAttribute="trailing" constant="16" id="xrB-u3-ufy"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xk1-a4-BBJ" secondAttribute="trailing" id="7Av-Zr-Pz0"/>
+                <constraint firstItem="Poo-Fw-jdV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Bzz-sU-VQW"/>
+                <constraint firstItem="Poo-Fw-jdV" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="GJf-qF-JgQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="xk1-a4-BBJ" secondAttribute="bottom" id="IUW-ur-sm4"/>
+                <constraint firstAttribute="trailing" secondItem="Poo-Fw-jdV" secondAttribute="trailing" id="V3r-gJ-cBJ"/>
                 <constraint firstItem="xk1-a4-BBJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="fma-iB-f4Z"/>
                 <constraint firstItem="xk1-a4-BBJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ft4-e3-OFk"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Poo-Fw-jdV" secondAttribute="bottom" id="jIN-aC-iRW"/>
             </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="35" y="234"/>
+            <point key="canvasLocation" x="34.5" y="233.5"/>
         </view>
     </objects>
 </document>

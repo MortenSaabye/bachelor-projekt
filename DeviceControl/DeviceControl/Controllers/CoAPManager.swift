@@ -16,12 +16,13 @@ class CoAPManager: MessageManager {
 		self.client = SCClient(delegate: self)
 	}
 	
-	override func sendMessage(with payload: [String : Any], to host: Host, path pathComponent: String) {
+	override func sendMessage(with payload: [String : Any], to host: Host, path pathComponent: String, confirmable: Bool = true) {
 		guard let data = self.getJSONDataFrom(dict: payload) else {
 			print("Could not get data")
 			return
 		}
-		let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 03)!, type: .confirmable, payload: data)
+		let type: SCType = confirmable ? .confirmable : .nonConfirmable
+		let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 03)!, type: type, payload: data)
 		if let pathData = pathComponent.data(using: .utf8),
 			let ipAddress = WiFiManager.getIPFromHostname(hostname: host.hostName) {
 			message.addOption(SCOption.uriPath.rawValue, data: pathData)
@@ -51,6 +52,9 @@ class CoAPManager: MessageManager {
 extension CoAPManager : SCClientDelegate {
 	func swiftCoapClient(_ client: SCClient, didReceiveMessage message: SCMessage) {
 		print("received message in manager")
+		if message.type == .nonConfirmable {
+			return
+		}
 		if let data = message.payload {
 			self.parseDataAndNotifyDelegate(payload: data)
 		}

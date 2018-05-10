@@ -29,6 +29,7 @@ class AddDevicesTVC: UITableViewController {
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
+		DeviceManager.shared.saveDevices()
 		DeviceManager.shared.addDevicesDelegate = nil
 	}
 

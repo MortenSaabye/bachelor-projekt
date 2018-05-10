@@ -8,44 +8,41 @@
 
 import UIKit
 
-class DeviceCell: UICollectionViewCell, UITextFieldDelegate {
+protocol DeviceCellDelegate {
+	func willUpdateCell(sender: DeviceCell)
+}
+
+class DeviceCell: UICollectionViewCell {
 	@IBOutlet weak var iconView: UIImageView!
 	@IBOutlet weak var nameLabel: UILabel!
-	@IBOutlet weak var pathLabel: UILabel!
 	@IBOutlet weak var container: UIView!
 	@IBOutlet weak var isOnLabel: UILabel!
-	@IBOutlet weak var stateLabel: UILabel!
-	@IBOutlet weak var stateTextfield: UITextField!
+	@IBOutlet weak var brightnessSlider: UISlider!
+	var delegate: DeviceCellDelegate?
 	override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
 		self.container.clipsToBounds = true
 		self.container.layer.cornerRadius = 10
+		self.brightnessSlider.addTarget(self, action: #selector(self.brightnessChanged), for: .valueChanged)
     }
+	
+
 	var deviceId: Int?
 	
 	func setupCell(device: Device) {
 		let gesture = UILongPressGestureRecognizer(target: self, action: #selector(self.removeDevice))
 		self.container.addGestureRecognizer(gesture)
 		self.nameLabel.text = device.name
-		self.iconView?.image = device.type.getIcon()
-		self.pathLabel.text = "coap://\(device.host.hostName):\(device.host.port)/\(device.id)"
-		self.stateLabel.text = device.state
+		self.iconView?.image = device.getIcon()
+		self.brightnessSlider.value = Float(device.brightness)
 		self.deviceId = device.id
 		if !device.isConnected {
 			self.setNotConnected()
 		} else {
-			self.isOnLabel.text = device.isOn ? "On" : "Off"
-			self.setConnected()
+			self.isOnLabel.text = device.on ? "On" : "Off"
+			self.setConnected(colorString: device.color)
 		}
-		if device.type != .Screen {
-			self.stateTextfield.isHidden = true
-		} else {
-			self.stateTextfield.isHidden = false
-			self.stateTextfield.delegate = self
-			self.stateTextfield.text = ""
-		}
-		
 	}
 	
 	@objc func removeDevice(device: Device) {
@@ -58,25 +55,29 @@ class DeviceCell: UICollectionViewCell, UITextFieldDelegate {
 		self.isOnLabel.text = "No connection"
 		self.container.backgroundColor = UIColor(named: "blueSky")?.withAlphaComponent(0.2)
 		self.nameLabel.textColor = .darkGray
-		self.stateLabel.textColor = .darkGray
 		self.isOnLabel.textColor = .darkGray
 	}
 	
-	func setConnected() {
-		self.container.backgroundColor = UIColor(named: "blueSky")?.withAlphaComponent(0.4)
+	func setConnected(colorString: String) {
+		let color: UIColor?
+		if !colorString.isEmpty {
+			color = UIColor(hexString: colorString)
+		} else {
+			color = UIColor(named: "blueSky")
+		}
+		self.container.backgroundColor = color?.withAlphaComponent(0.4)
+		self.brightnessSlider.tintColor = color
 		self.nameLabel.textColor = .black
-		self.stateLabel.textColor = .black
 		self.isOnLabel.textColor = .black
 	}
 	
-	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		let device = DeviceManager.shared.devices.first { (device) -> Bool in
-			device.id == self.deviceId
+	@objc func brightnessChanged() {
+		guard let id = self.deviceId else {
+			print("no device id")
+			return
 		}
-		if let newState = textField.text {
-			device?.state = newState
-		}
-		textField.resignFirstResponder()
-		return true
+		let brightness = self.brightnessSlider.value
+		DeviceManager.shared.changeBrightness(deviceId: id, brightness: Int(brightness))
+		self.delegate?.willUpdateCell(sender: self)
 	}
 }

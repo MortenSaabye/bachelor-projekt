@@ -10,27 +10,29 @@ import Foundation
 import UIKit
 
 class Device : NSObject, NSCoding {
-	init(id: Int, type: String, name: String, host: Host, isOn: Bool, state: String) {
+	init(id: Int, type: String, name: String, host: Host, on: Bool, brightness: Int, color: String) {
 		self.name = name
 		self.type = DeviceType.typeFromString(string: type)
 		self.host = host
-		self.isOn = isOn
-		self.state = state
+		self.on = on
 		self.id = id
+		self.brightness = brightness
+		self.color = color
 	}
 	
 	convenience init?(dict: [String: Any], service: NetService) {
 		guard let typestring = dict["type"] as? String,
 			let id = dict["id"] as? Int,
 			let name = dict["name"] as? String,
-			let isOn = dict["isOn"] as? Bool,
-			let state = dict["state"] as? String,
+			let on = dict["on"] as? Bool,
+			let brightness = dict["brightness"] as? Int,
+			let color = dict["color"] as? String,
 			let hostname = service.hostName else {
 				print("Not all values present")
 				return nil
 		}
 		let host: Host = Host(port: service.port, hostName: hostname)
-		self.init(id: id, type: typestring, name: name, host: host, isOn: isOn, state: state)
+		self.init(id: id, type: typestring, name: name, host: host, on: on, brightness: brightness, color: color)
 	}
 	
 	init(device: Device) {
@@ -38,8 +40,9 @@ class Device : NSObject, NSCoding {
 		self.host = device.host
 		self.name = device.name
 		self.type = device.type
-		self.isOn = device.isOn
-		self.state = device.state
+		self.on = device.on
+		self.color = device.color
+		self.brightness = device.brightness
 	}
 	
 	func encode(with aCoder: NSCoder) {
@@ -59,15 +62,31 @@ class Device : NSObject, NSCoding {
 		let port = aDecoder.decodeInteger(forKey: "port")
 		let id = aDecoder.decodeInteger(forKey: "id")
 		let host = Host(port: port, hostName: hostname)
-		self.init(id: id, type: typestring, name: name, host: host, isOn: false, state: "")
+		self.init(id: id, type: typestring, name: name, host: host, on: false, brightness: 0, color: "")
 	}
 	let id: Int
 	let host: Host
 	let type: DeviceType
 	var name: String
-	var state: String = ""
-	var isOn: Bool = false
+	var on: Bool = false
 	var isConnected: Bool = false
+	var color: String = ""
+	var brightness: Int = 100
+	
+	func getIcon() -> UIImage {
+		switch self.type {
+		case .Light, .IKEA:
+			if self.on {
+				return #imageLiteral(resourceName: "light")
+			} else {
+				return #imageLiteral(resourceName: "light-off")
+			}
+
+		default:
+			return #imageLiteral(resourceName: "other")
+		}
+	}
+	
 }
 
 struct Host: Equatable {
@@ -81,27 +100,16 @@ struct Host: Equatable {
 
 enum DeviceType {
 	case Light
-	case Screen
+	case IKEA
 	case Other
 	static func typeFromString(string: String) -> DeviceType {
 		switch string {
 		case "light":
 			return self.Light
-		case "screen":
-			return self.Screen
+		case "tradfri":
+			return self.IKEA
 		default:
 			return self.Other
-		}
-	}
-	
-	func getIcon() -> UIImage {
-		switch self {
-		case .Light:
-			return #imageLiteral(resourceName: "light")
-		case .Screen:
-			return #imageLiteral(resourceName: "screen")
-		default:
-			return #imageLiteral(resourceName: "other")
 		}
 	}
 	
@@ -109,8 +117,8 @@ enum DeviceType {
 		switch self {
 		case .Light:
 			return "light"
-		case .Screen:
-			return "screen"
+		case .IKEA:
+			return "tradfri"
 		default:
 			return "other"
 		}

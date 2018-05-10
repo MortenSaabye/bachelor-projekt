@@ -25,6 +25,7 @@ class DeviceManager  {
 	static let shared: DeviceManager = DeviceManager()
 	var addDevicesDelegate: AddDevicesDelegate?
 	var delegate: DeviceManagerDelegate?
+	var pollTimer: Timer?
 	func loadDevices() {
 		do {
 			let fileToGet = try self.getFileUrl()
@@ -38,15 +39,31 @@ class DeviceManager  {
 		} catch {
 			print(error)
 		}
+		self.startPolling()
 	}
 	
-	func updateStateFor(device: Device) {
+	func updateStateFor(device: Device, confirmable: Bool = true) {
 		var payload = [String: Any]()
-		payload["isOn"] = !device.isOn
-		payload["state"] = device.state
+		payload["on"] = device.on
 		payload["id"] = device.id
+		payload["color"] = device.color
+		payload["brightness"] = device.brightness
 		let messageManager = MessageManager.getMessageManager(delegate: self)
-		messageManager.sendMessage(with: payload, to: device.host, path: "\(device.id)/state")
+		messageManager.sendMessage(with: payload, to: device.host, path: "\(device.id)/state", confirmable: confirmable)
+	}
+	
+	func changeBrightness(deviceId: Int, brightness: Int) {
+		guard let device = self.getDeviceFrom(id: deviceId) else {
+			print("no device")
+			return
+		}
+		device.brightness = brightness
+		self.updateStateFor(device: device, confirmable: false)
+	}
+	
+	func toggle(device: Device) {
+		device.on = !device.on
+		self.updateStateFor(device: device)
 	}
 	
 	func checkStateForLocalDevices() {
@@ -152,6 +169,12 @@ class DeviceManager  {
 		return self.devices.index(of: device)
 	}
 	
+	func startPolling() {
+		self.pollTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (timer) in
+			self.checkStateForLocalDevices()
+		})
+	}
+	
 }
 
 extension DeviceManager : MessageManagerDelegate {
@@ -184,13 +207,21 @@ extension DeviceManager : MessageManagerDelegate {
 	func sendDeviceToDelegate(dict: [String: Any]) {
 		if let id = dict["id"] as? Int,
 		let device = self.getDeviceFrom(id: id),
-		let isOn = dict["isOn"] as? Bool,
-		let state = dict["state"] as? String,
+		let on = dict["on"] as? Bool,
+		let color = dict["color"] as? String,
+		let brightness = dict["brightness"] as? Int,
 		let index = self.getIndexForDevice(device: device) {
-			device.isOn = isOn
-			device.state = state
+			var shouldUpdate = true
+			if device.on == on && device.brightness == brightness && device.color == color && device.isConnected {
+				shouldUpdate = false
+			}
+			device.on = on
 			device.isConnected = true
-			self.delegate?.didUpdateDevice(device: device, index: index, sender: self)
+			device.brightness = brightness
+			device.color = color
+			if shouldUpdate {
+				self.delegate?.didUpdateDevice(device: device, index: index, sender: self)
+			}
 		}
 	}
 }
