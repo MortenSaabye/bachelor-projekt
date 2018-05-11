@@ -8,6 +8,7 @@ target 'DeviceControl' do
   # Pods for DeviceControl
 	pod 'Alamofire', '~> 4.7'
 	pod 'CocoaMQTT'
+	pod 'SnapKit'
   target 'DeviceControlTests' do
     inherit! :search_paths
     # Pods for testing

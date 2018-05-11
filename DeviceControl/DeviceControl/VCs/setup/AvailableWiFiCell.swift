@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import SnapKit
 
 class AvailableWiFiCell: UITableViewCell {
-
-    @IBOutlet weak var signalLabel: UILabel!
     @IBOutlet weak var SSIDlabel: UILabel!
     @IBOutlet weak var lockIcon: UIImageView!
-    override func awakeFromNib() {
+	@IBOutlet weak var signalStrength: SignalStrength!
+	
+	override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -20,7 +20,7 @@ class DeviceSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBOutlet weak var passwordTextField: UITextField!
 	@IBOutlet weak var continueButton: UIButton!
 	let WIFI_CELL_IDENTIFIER: String = "WIFI_CELL"
-    let CELL_HEIGHT: CGFloat = 50
+    let CELL_HEIGHT: CGFloat = 60
     var networks: [WiFiNetwork]?
     var selectedNetwork: WiFiNetwork?
     override func viewDidLoad() {
@@ -94,7 +94,7 @@ class DeviceSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         let network = networks[indexPath.row]
         cell.SSIDlabel.text = network.ssid
         cell.lockIcon.image = network.isSecured ? #imageLiteral(resourceName: "locked") : #imageLiteral(resourceName: "unlocked")
-        cell.signalLabel.text = network.signalStrength
+		cell.signalStrength.signalLevel = CGFloat(network.signalStrength)
         return cell
     }
     

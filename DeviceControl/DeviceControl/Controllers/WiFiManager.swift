@@ -95,16 +95,12 @@ class WiFiManager {
                 print("DataController has been deallocated")
                 return
             }
-			var success = true
-			var errorMessage = ""
-            if let JSONValue = response.result.value as? [String: Any],
-			let success_ = JSONValue["success"] as? Bool,
-			let errorMessage_ = JSONValue["errormessage"] as? String {
-				success = success_
-				errorMessage = errorMessage_
-            }
-			
-            safeSelf.delegate?.didConnectToNetwork(sender: safeSelf, success: success, error:  errorMessage)
+			guard let JSONValue = response.result.value as? [String: Any],
+				let success = JSONValue["success"] as? Bool else {
+					print("Could not get JSON")
+					return
+			}
+			safeSelf.delegate?.didConnectToNetwork(sender: safeSelf, success: success, error: JSONValue["errormessage"] as? String ?? "")
         }
     }
     init(){
@@ -116,12 +112,12 @@ class WiFiManager {
 
 struct WiFiNetwork {
     let ssid: String
-    let signalStrength: String
+    let signalStrength: Int
     let isSecured: Bool
     var passcode: String?
 	init?(string: String) {
 		var ssid: String?
-		var signalStrength: String?
+		var signalStrength: Int?
 		var isSecured: Bool?
 		let components = string.components(separatedBy: "\n")
 		for component in components {
@@ -130,7 +126,8 @@ struct WiFiNetwork {
 				ssid = trimmedComponent.components(separatedBy: ":")[1].trimmingCharacters(in: .punctuationCharacters)
 			}
 			if trimmedComponent.hasPrefix("Quality") {
-				signalStrength = trimmedComponent.components(separatedBy: "=")[2]
+				let signalStrengthString = trimmedComponent.components(separatedBy: "=")[2]
+				signalStrength = Int(signalStrengthString.components(separatedBy: " ")[0])
 			}
 			if trimmedComponent.hasPrefix("Encryption key") {
 				if trimmedComponent.hasSuffix("on") {

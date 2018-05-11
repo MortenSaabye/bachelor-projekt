@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		48F36F19A0257A5E29AA37D1 /* Pods_DeviceControlTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B703AE2406583BF4F38AEB /* Pods_DeviceControlTests.framework */; };
+		9C2CAD3020A5BD9900A396B6 /* SignalStrength.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C2CAD2F20A5BD9800A396B6 /* SignalStrength.xib */; };
 		9C3115D8209762F0003A443E /* DeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3115D6209762F0003A443E /* DeviceCell.swift */; };
 		9C3115D9209762F0003A443E /* DeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3115D7209762F0003A443E /* DeviceCell.xib */; };
 		9C37010020A1C03B00C66FE1 /* extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3700FF20A1C03B00C66FE1 /* extentions.swift */; };
@@ -17,6 +18,7 @@
 		9C3F60E2209B2BC500EE5723 /* AddMQTTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F60E0209B2BC500EE5723 /* AddMQTTVC.swift */; };
 		9C3F60E3209B2BC500EE5723 /* AddMQTTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3F60E1209B2BC500EE5723 /* AddMQTTVC.xib */; };
 		9C3F60E5209B469500EE5723 /* MQTTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F60E4209B469500EE5723 /* MQTTManager.swift */; };
+		9CC7C18020A57B930078771C /* SignalStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC7C17F20A57B930078771C /* SignalStrength.swift */; };
 		9CE57E0B209867ED00B0D55A /* AddDevicesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE57E09209867ED00B0D55A /* AddDevicesTVC.swift */; };
 		9CE57E0C209867ED00B0D55A /* AddDevicesTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CE57E0A209867ED00B0D55A /* AddDevicesTVC.xib */; };
 		9CE57E0F209868DE00B0D55A /* AddDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE57E0D209868DE00B0D55A /* AddDeviceCell.swift */; };
@@ -74,6 +76,7 @@
 		7FEC49459270D1389F25016A /* Pods-DeviceControlTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeviceControlTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeviceControlTests/Pods-DeviceControlTests.debug.xcconfig"; sourceTree = "<group>"; };
 		804885516B64D9C5BB8DF4D9 /* Pods-DeviceControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeviceControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DeviceControl/Pods-DeviceControl.release.xcconfig"; sourceTree = "<group>"; };
 		95909309D04EE6F8587E1BD2 /* Pods-DeviceControlUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeviceControlUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeviceControlUITests/Pods-DeviceControlUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		9C2CAD2F20A5BD9800A396B6 /* SignalStrength.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignalStrength.xib; sourceTree = "<group>"; };
 		9C3115D6209762F0003A443E /* DeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCell.swift; sourceTree = "<group>"; };
 		9C3115D7209762F0003A443E /* DeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceCell.xib; sourceTree = "<group>"; };
 		9C3700FF20A1C03B00C66FE1 /* extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extentions.swift; sourceTree = "<group>"; };
@@ -83,6 +86,7 @@
 		9C3F60E0209B2BC500EE5723 /* AddMQTTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMQTTVC.swift; sourceTree = "<group>"; };
 		9C3F60E1209B2BC500EE5723 /* AddMQTTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddMQTTVC.xib; sourceTree = "<group>"; };
 		9C3F60E4209B469500EE5723 /* MQTTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTManager.swift; sourceTree = "<group>"; };
+		9CC7C17F20A57B930078771C /* SignalStrength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrength.swift; sourceTree = "<group>"; };
 		9CE57E09209867ED00B0D55A /* AddDevicesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDevicesTVC.swift; sourceTree = "<group>"; };
 		9CE57E0A209867ED00B0D55A /* AddDevicesTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDevicesTVC.xib; sourceTree = "<group>"; };
 		9CE57E0D209868DE00B0D55A /* AddDeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceCell.swift; sourceTree = "<group>"; };
@@ -247,6 +251,8 @@
 				DF31D998208DDF7100A5A6BF /* Info.plist */,
 				9C3700FF20A1C03B00C66FE1 /* extentions.swift */,
 				9C37010120A1DEC200C66FE1 /* Debouncer.swift */,
+				9C2CAD2F20A5BD9800A396B6 /* SignalStrength.xib */,
+				9CC7C17F20A57B930078771C /* SignalStrength.swift */,
 			);
 			path = DeviceControl;
 			sourceTree = "<group>";
@@ -440,6 +446,7 @@
 				DFC0AFA4208DE08E0088B075 /* StartVC.xib in Resources */,
 				9CE57E0C209867ED00B0D55A /* AddDevicesTVC.xib in Resources */,
 				9C3F60E3209B2BC500EE5723 /* AddMQTTVC.xib in Resources */,
+				9C2CAD3020A5BD9900A396B6 /* SignalStrength.xib in Resources */,
 				DFC0AFA6208DE0940088B075 /* AvailableWiFiCell.xib in Resources */,
 				DFC0AFBA208E2A7A0088B075 /* ServiceCell.xib in Resources */,
 				DF31D994208DDF7100A5A6BF /* Assets.xcassets in Resources */,
@@ -556,6 +563,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaMQTT/CocoaMQTT.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyTimer/SwiftyTimer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -563,6 +571,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaMQTT.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyTimer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -633,6 +642,7 @@
 				DF0DB3BF208E330B00866D3A /* ServiceBrowserTCV.swift in Sources */,
 				9CF9FAAA209C4EE400B55929 /* SCClient.swift in Sources */,
 				9CEC55AB209DBA33007A637B /* MessageManager.swift in Sources */,
+				9CC7C18020A57B930078771C /* SignalStrength.swift in Sources */,
 				DFC0AFA7208DE0960088B075 /* DeviceSetupVC.swift in Sources */,
 				9C37010220A1DEC200C66FE1 /* Debouncer.swift in Sources */,
 				9CE57E0F209868DE00B0D55A /* AddDeviceCell.swift in Sources */,

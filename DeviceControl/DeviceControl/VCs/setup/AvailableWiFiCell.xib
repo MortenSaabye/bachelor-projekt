@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -14,53 +13,52 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WIFI_CELL" rowHeight="80" id="KGk-i7-Jjw" customClass="AvailableWiFiCell" customModule="DeviceControl" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="413" height="80"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WIFI_CELL" rowHeight="39" id="KGk-i7-Jjw" customClass="AvailableWiFiCell" customModule="DeviceControl" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="501" height="74"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="413" height="79.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="501" height="73.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGNAL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6q-EU-6Il">
-                        <rect key="frame" x="20" y="29" width="80" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="80" id="2gf-6I-W3X"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="SSID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AvR-T6-5vc">
-                        <rect key="frame" x="120" y="29" width="235" height="21"/>
+                        <rect key="frame" x="80" y="26.5" width="363" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="locked" translatesAutoresizingMaskIntoConstraints="NO" id="3gY-EB-oco">
-                        <rect key="frame" x="363" y="25" width="30" height="28"/>
+                        <rect key="frame" x="451" y="23" width="30" height="28"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="GMU-DS-b7Q"/>
                             <constraint firstAttribute="width" secondItem="3gY-EB-oco" secondAttribute="height" multiplier="17:16" id="zI9-22-Dr4"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zvP-0S-7CW" userLabel="signalContainer" customClass="SignalStrength" customModule="DeviceControl" customModuleProvider="target">
+                        <rect key="frame" x="20" y="22" width="50" height="30"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="f3X-Xs-U3i"/>
+                            <constraint firstAttribute="width" constant="50" id="ses-y4-yX1"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="3gY-EB-oco" firstAttribute="leading" secondItem="AvR-T6-5vc" secondAttribute="trailing" constant="8" id="1bE-XT-ica"/>
                     <constraint firstItem="3gY-EB-oco" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="Iuw-eX-sW0"/>
-                    <constraint firstItem="n6q-EU-6Il" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="VAC-ap-ZCa"/>
+                    <constraint firstItem="AvR-T6-5vc" firstAttribute="leading" secondItem="zvP-0S-7CW" secondAttribute="trailing" constant="10" id="Rrk-oW-dC4"/>
                     <constraint firstItem="AvR-T6-5vc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WiX-hd-mWm"/>
-                    <constraint firstItem="n6q-EU-6Il" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="gdF-yz-LMN"/>
-                    <constraint firstItem="AvR-T6-5vc" firstAttribute="leading" secondItem="n6q-EU-6Il" secondAttribute="trailing" constant="20" id="gjU-Xh-e0D"/>
                     <constraint firstItem="3gY-EB-oco" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hB0-QB-HAf"/>
+                    <constraint firstItem="zvP-0S-7CW" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="oJL-FP-bk9"/>
+                    <constraint firstItem="zvP-0S-7CW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="v3B-mT-9iZ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="SSIDlabel" destination="AvR-T6-5vc" id="May-AY-ruT"/>
                 <outlet property="lockIcon" destination="3gY-EB-oco" id="JLw-Rd-ML3"/>
-                <outlet property="signalLabel" destination="n6q-EU-6Il" id="pBW-xt-TT9"/>
+                <outlet property="signalStrength" destination="zvP-0S-7CW" id="9oR-hS-QW3"/>
             </connections>
-            <point key="canvasLocation" x="71.5" y="70"/>
+            <point key="canvasLocation" x="-0.5" y="84"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignalStrength" customModule="DeviceControl" customModuleProvider="target">
+            <connections>
+                <outlet property="stackView" destination="MHQ-Gt-9Eh" id="S1u-dU-ybV"/>
+                <outlet property="view" destination="nlN-Iz-VQy" id="UdS-wT-3ya"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="nlN-Iz-VQy">
+            <rect key="frame" x="0.0" y="0.0" width="134" height="92"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="bottom" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="MHQ-Gt-9Eh">
+                    <rect key="frame" x="0.0" y="0.0" width="134" height="92"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pzu-Fu-8Ys">
+                            <rect key="frame" x="0.0" y="0.0" width="25" height="92"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fMj-fr-Ja6">
+                            <rect key="frame" x="27" y="0.0" width="25.5" height="92"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rH5-Sl-NnH">
+                            <rect key="frame" x="54.5" y="0.0" width="25" height="92"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddm-1G-K0m">
+                            <rect key="frame" x="81.5" y="0.0" width="25.5" height="92"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXf-fe-kB1">
+                            <rect key="frame" x="109" y="0.0" width="25" height="92"/>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="MHQ-Gt-9Eh" firstAttribute="top" secondItem="nlN-Iz-VQy" secondAttribute="top" id="Ehg-WX-RyU"/>
+                <constraint firstAttribute="bottom" secondItem="MHQ-Gt-9Eh" secondAttribute="bottom" id="JFE-W9-goY"/>
+                <constraint firstItem="MHQ-Gt-9Eh" firstAttribute="leading" secondItem="nlN-Iz-VQy" secondAttribute="leading" id="Jzv-Kz-XWp"/>
+                <constraint firstAttribute="trailing" secondItem="MHQ-Gt-9Eh" secondAttribute="trailing" id="o3J-2X-yQp"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="signalLevel">
+                    <real key="value" value="-40"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="maximum">
+                    <real key="value" value="-25"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="minimum">
+                    <real key="value" value="-100"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="540" y="-419"/>
+        </view>
+    </objects>
+</document>

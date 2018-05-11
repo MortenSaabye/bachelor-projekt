@@ -102,37 +102,35 @@
                                     <rect key="frame" x="375" y="0.0" width="375" height="603"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your wireless network" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0U8-aa-fSa">
-                                            <rect key="frame" x="0.0" y="20" width="375" height="23"/>
+                                            <rect key="frame" x="16" y="20" width="243" height="23"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ayO-Mg-DDZ">
-                                            <rect key="frame" x="0.0" y="73" width="375" height="530"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </tableView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2E-Pm-Caa">
-                                            <rect key="frame" x="0.0" y="563" width="375" height="40"/>
+                                            <rect key="frame" x="299" y="16.5" width="60" height="30"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="KJU-ZX-3IM"/>
+                                                <constraint firstAttribute="width" constant="60" id="V9x-qb-4fp"/>
                                             </constraints>
                                             <state key="normal" title="Reload"/>
                                             <connections>
                                                 <action selector="reloadNetworks:" destination="-1" eventType="touchUpInside" id="G0T-Gc-O59"/>
                                             </connections>
                                         </button>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ayO-Mg-DDZ">
+                                            <rect key="frame" x="0.0" y="73" width="375" height="530"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </tableView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="O2E-Pm-Caa" secondAttribute="trailing" id="A37-6W-Xqm"/>
-                                        <constraint firstAttribute="trailing" secondItem="0U8-aa-fSa" secondAttribute="trailing" id="JzQ-ms-Hpd"/>
-                                        <constraint firstItem="0U8-aa-fSa" firstAttribute="leading" secondItem="5y8-YJ-hH4" secondAttribute="leading" id="S3H-b2-1Gd"/>
+                                        <constraint firstAttribute="trailing" secondItem="O2E-Pm-Caa" secondAttribute="trailing" constant="16" id="Ni8-rL-uXz"/>
+                                        <constraint firstItem="0U8-aa-fSa" firstAttribute="leading" secondItem="5y8-YJ-hH4" secondAttribute="leading" constant="16" id="S3H-b2-1Gd"/>
                                         <constraint firstAttribute="bottom" secondItem="ayO-Mg-DDZ" secondAttribute="bottom" id="Spy-mq-9Im"/>
                                         <constraint firstItem="0U8-aa-fSa" firstAttribute="top" secondItem="5y8-YJ-hH4" secondAttribute="top" constant="20" id="Uli-4v-JPy"/>
-                                        <constraint firstAttribute="bottom" secondItem="O2E-Pm-Caa" secondAttribute="bottom" id="ZGj-lh-c0U"/>
+                                        <constraint firstItem="O2E-Pm-Caa" firstAttribute="centerY" secondItem="0U8-aa-fSa" secondAttribute="centerY" id="gxD-Z4-a67"/>
                                         <constraint firstItem="ayO-Mg-DDZ" firstAttribute="top" secondItem="0U8-aa-fSa" secondAttribute="bottom" constant="30" id="kNA-KT-OMI"/>
-                                        <constraint firstItem="O2E-Pm-Caa" firstAttribute="leading" secondItem="5y8-YJ-hH4" secondAttribute="leading" id="ohx-0J-FM9"/>
                                         <constraint firstAttribute="trailing" secondItem="ayO-Mg-DDZ" secondAttribute="trailing" id="peO-Rb-0P9"/>
                                         <constraint firstItem="ayO-Mg-DDZ" firstAttribute="leading" secondItem="5y8-YJ-hH4" secondAttribute="leading" id="pu6-HJ-bUx"/>
                                     </constraints>
