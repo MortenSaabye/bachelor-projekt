@@ -64,7 +64,7 @@ class WiFiManager {
 				let inetAddress: sockaddr_in = data.castToCPointer()
 				if inetAddress.sin_family == __uint8_t(AF_INET) {
 					if let ip = String(cString: inet_ntoa(inetAddress.sin_addr), encoding: .ascii) {
-						return(ip)
+						return ip
 					}
 				}
 			}

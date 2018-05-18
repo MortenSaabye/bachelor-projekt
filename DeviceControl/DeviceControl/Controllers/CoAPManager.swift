@@ -23,28 +23,34 @@ class CoAPManager: MessageManager {
 		}
 		let type: SCType = confirmable ? .confirmable : .nonConfirmable
 		let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 03)!, type: type, payload: data)
-		if let pathData = pathComponent.data(using: .utf8),
-			let ipAddress = WiFiManager.getIPFromHostname(hostname: host.hostName) {
-			message.addOption(SCOption.uriPath.rawValue, data: pathData)
-			client.sendCoAPMessage(message, hostName: ipAddress, port: UInt16(host.port))
+		DispatchQueue.global().async {
+			if let pathData = pathComponent.data(using: .utf8),
+				let ipAddress = WiFiManager.getIPFromHostname(hostname: host.hostName) {
+				message.addOption(SCOption.uriPath.rawValue, data: pathData)
+				self.client.sendCoAPMessage(message, hostName: ipAddress, port: UInt16(host.port))
+			}
 		}
 	}
 	
 	override func sendMessage(to host: Host, path pathComponent: String) {
 		let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 01)!, type: .confirmable, payload: nil)
-		if let pathData = pathComponent.data(using: .utf8),
-			let ipAddress = WiFiManager.getIPFromHostname(hostname: host.hostName) {
-			message.addOption(SCOption.uriPath.rawValue, data: pathData)
-			client.sendCoAPMessage(message, hostName: ipAddress, port: UInt16(host.port))
+		DispatchQueue.global().async {
+			if let pathData = pathComponent.data(using: .utf8),
+				let ipAddress = WiFiManager.getIPFromHostname(hostname: host.hostName) {
+				message.addOption(SCOption.uriPath.rawValue, data: pathData)
+				self.client.sendCoAPMessage(message, hostName: ipAddress, port: UInt16(host.port))
+			}
 		}
 	}
 	
 	override func sendMessage(with payload: Any, to host: Host, path pathComponent: String) {
 		let message = SCMessage(code: SCCodeValue(classValue: 0, detailValue: 03)!, type: .confirmable, payload: "\(payload)".data(using: .utf8))
-		if let pathData = pathComponent.data(using: .utf8),
-			let ipAddress = WiFiManager.getIPFromHostname(hostname: host.hostName) {
-			message.addOption(SCOption.uriPath.rawValue, data: pathData)
-			client.sendCoAPMessage(message, hostName: ipAddress, port: UInt16(host.port))
+		DispatchQueue.global().async {
+			if let pathData = pathComponent.data(using: .utf8),
+				let ipAddress = WiFiManager.getIPFromHostname(hostname: host.hostName) {
+				message.addOption(SCOption.uriPath.rawValue, data: pathData)
+				self.client.sendCoAPMessage(message, hostName: ipAddress, port: UInt16(host.port))
+			}
 		}
 	}
 }

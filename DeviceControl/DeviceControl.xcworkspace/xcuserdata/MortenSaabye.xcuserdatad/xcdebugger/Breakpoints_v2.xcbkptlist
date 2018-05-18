@@ -74,7 +74,7 @@
                   moduleName = "DeviceControl"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MortenSaabye/Desktop/bachelor-projekt/DeviceControl/DeviceControl/Controllers/MQTTManager.swift"
-                  timestampString = "547735181.937199"
+                  timestampString = "547973714.468158"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "66"
@@ -89,7 +89,7 @@
                   moduleName = "DeviceControl"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MortenSaabye/Desktop/bachelor-projekt/DeviceControl/DeviceControl/Controllers/MQTTManager.swift"
-                  timestampString = "547735181.9390171"
+                  timestampString = "547973714.470842"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "62"
@@ -176,6 +176,38 @@
             startingLineNumber = "57"
             endingLineNumber = "57"
             landmarkName = "addedMQTTCreds(sender:success:done:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DeviceControl/Controllers/CoAPManager.swift"
+            timestampString = "548335756.568786"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "swiftCoapClient(_:didFailWithError:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DeviceControl/Controllers/CoAPManager.swift"
+            timestampString = "548335756.5691071"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "swiftCoapClient(_:didReceiveMessage:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
