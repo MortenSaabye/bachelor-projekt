@@ -64,4 +64,9 @@ class MessageManager {
 		manager.delegate = delegate
 		return manager
 	}
+	
+	static func reconnect() {
+		MQTTManager.shared.loadServerInfo()
+		CoAPManager.shared = CoAPManager()
+	}
 }

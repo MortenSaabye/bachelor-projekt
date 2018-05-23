@@ -95,12 +95,19 @@ class WiFiManager {
                 print("DataController has been deallocated")
                 return
             }
-			guard let JSONValue = response.result.value as? [String: Any],
-				let success = JSONValue["success"] as? Bool else {
-					print("Could not get JSON")
-					return
+			var success: Bool = false
+			var error: String = ""
+			if let JSONValue = response.result.value as? [String: Any],
+				let reqSuccess = JSONValue["success"] as? Bool,
+				let errorString = JSONValue["errormessage"] as? String {
+					success = reqSuccess
+					error = errorString
 			}
-			safeSelf.delegate?.didConnectToNetwork(sender: safeSelf, success: success, error: JSONValue["errormessage"] as? String ?? "")
+			
+			if !success && response.error.debugDescription.range(of: "Code=-1005") != nil {
+				success = true
+			}
+			safeSelf.delegate?.didConnectToNetwork(sender: safeSelf, success: success, error: error)
         }
     }
     init(){

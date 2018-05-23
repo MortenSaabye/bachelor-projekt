@@ -72,6 +72,7 @@ class Device : NSObject, NSCoding {
 	var isConnected: Bool = false
 	var color: String = ""
 	var brightness: Int = 100
+	var isUpdating: Bool = false
 	
 	func getIcon() -> UIImage {
 		switch self.type {

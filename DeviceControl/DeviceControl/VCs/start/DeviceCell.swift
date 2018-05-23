@@ -18,6 +18,7 @@ class DeviceCell: UICollectionViewCell {
 	@IBOutlet weak var container: UIView!
 	@IBOutlet weak var isOnLabel: UILabel!
 	@IBOutlet weak var brightnessSlider: UISlider!
+	@IBOutlet weak var updateSpinner: UIActivityIndicatorView!
 	var delegate: DeviceCellDelegate?
 	override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,10 +27,7 @@ class DeviceCell: UICollectionViewCell {
 		self.container.layer.cornerRadius = 10
 		self.brightnessSlider.addTarget(self, action: #selector(self.brightnessChanged), for: .valueChanged)
     }
-	
-
 	var deviceId: Int?
-	
 	func setupCell(device: Device) {
 		let gesture = UILongPressGestureRecognizer(target: self, action: #selector(self.removeDevice))
 		self.container.addGestureRecognizer(gesture)
@@ -40,13 +38,26 @@ class DeviceCell: UICollectionViewCell {
 		if !device.isConnected {
 			self.setNotConnected()
 		} else {
-			self.isOnLabel.text = device.on ? "On" : "Off"
+			if device.on {
+				self.isOnLabel.text =  "On"
+				self.brightnessSlider.isEnabled = true
+
+			} else {
+				self.brightnessSlider.isEnabled = false
+				self.isOnLabel.text =  "Off"
+			}
 			self.setConnected(colorString: device.color)
+		}
+		if device.isUpdating {
+			updateSpinner.startAnimating()
+		} else {
+			updateSpinner.stopAnimating()
 		}
 	}
 	
+	
 	@objc func removeDevice(device: Device) {
-		if let id = self .deviceId {
+		if let id = self.deviceId {
 			DeviceManager.shared.removeDevice(id: id)
 		}
 	}

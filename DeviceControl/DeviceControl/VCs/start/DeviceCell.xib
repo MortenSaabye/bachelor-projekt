@@ -44,10 +44,15 @@
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="1" maxValue="254" translatesAutoresizingMaskIntoConstraints="NO" id="Xra-h0-T63">
                                 <rect key="frame" x="8" y="86" width="240" height="31"/>
                             </slider>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="RaQ-YX-2q5">
+                                <rect key="frame" x="50" y="56" width="20" height="20"/>
+                                <color key="tintColor" red="0.2542376089515983" green="1" blue="0.43113585084152584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.14509803921568626" green="0.6705882353" blue="0.96862745100000003" alpha="0.3025203339041096" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="UYF-Lu-Cqq" firstAttribute="leading" secondItem="Xra-h0-T63" secondAttribute="trailing" constant="10" id="JrM-z6-zH1"/>
+                            <constraint firstItem="RaQ-YX-2q5" firstAttribute="centerY" secondItem="MIC-OS-9ie" secondAttribute="centerY" id="KvT-yH-mPa"/>
                             <constraint firstItem="UYF-Lu-Cqq" firstAttribute="leading" secondItem="aBI-Jx-sjZ" secondAttribute="trailing" constant="10" id="OK4-mi-gnS"/>
                             <constraint firstItem="aBI-Jx-sjZ" firstAttribute="leading" secondItem="Gwy-Z2-gXK" secondAttribute="leading" constant="10" id="Oqy-HW-paX"/>
                             <constraint firstItem="UYF-Lu-Cqq" firstAttribute="top" secondItem="QTn-m6-QNm" secondAttribute="top" constant="16" id="QwD-uz-ddM"/>
@@ -55,6 +60,7 @@
                             <constraint firstItem="MIC-OS-9ie" firstAttribute="top" secondItem="aBI-Jx-sjZ" secondAttribute="bottom" constant="8" id="ahv-oH-lfo"/>
                             <constraint firstItem="Xra-h0-T63" firstAttribute="leading" secondItem="QTn-m6-QNm" secondAttribute="leading" constant="10" id="gCe-he-zFS"/>
                             <constraint firstItem="MIC-OS-9ie" firstAttribute="leading" secondItem="QTn-m6-QNm" secondAttribute="leading" constant="10" id="hrW-r1-orX"/>
+                            <constraint firstItem="RaQ-YX-2q5" firstAttribute="leading" secondItem="MIC-OS-9ie" secondAttribute="trailing" constant="10" id="nUm-Pr-0BV"/>
                             <constraint firstItem="aBI-Jx-sjZ" firstAttribute="top" secondItem="UYF-Lu-Cqq" secondAttribute="top" id="riG-BY-4vq"/>
                             <constraint firstItem="Xra-h0-T63" firstAttribute="bottom" secondItem="UYF-Lu-Cqq" secondAttribute="bottom" id="tzt-Ah-jIx"/>
                         </constraints>
@@ -78,6 +84,7 @@
                 <outlet property="iconView" destination="UYF-Lu-Cqq" id="HP1-dA-ihR"/>
                 <outlet property="isOnLabel" destination="MIC-OS-9ie" id="eUa-GX-q2X"/>
                 <outlet property="nameLabel" destination="aBI-Jx-sjZ" id="Nlw-cZ-Oz1"/>
+                <outlet property="updateSpinner" destination="RaQ-YX-2q5" id="IGv-LK-WCA"/>
             </connections>
             <point key="canvasLocation" x="-169" y="-43"/>
         </collectionViewCell>

@@ -17,6 +17,7 @@ protocol AddDevicesDelegate {
 protocol DeviceManagerDelegate {
 	func didUpdateDevice(device: Device, index: Int, sender: DeviceManager)
 	func didRemoveDevice(at index: Int, sender: DeviceManager)
+	func pollingDidTimeout(sender: DeviceManager)
 }
 
 class DeviceManager  {
@@ -26,6 +27,8 @@ class DeviceManager  {
 	var addDevicesDelegate: AddDevicesDelegate?
 	var delegate: DeviceManagerDelegate?
 	var pollTimer: Timer?
+	var pollTimeoutTimer: Timer?
+	let POLLRATE: Double = 10
 	func loadDevices() {
 		do {
 			let fileToGet = try self.getFileUrl()
@@ -39,7 +42,6 @@ class DeviceManager  {
 		} catch {
 			print(error)
 		}
-		self.startPolling()
 	}
 	
 	func updateStateFor(device: Device, confirmable: Bool = true) {
@@ -62,8 +64,9 @@ class DeviceManager  {
 	}
 	
 	func toggle(device: Device) {
-		device.on = !device.on
-		self.updateStateFor(device: device)
+		let deviceCopy = Device(device: device)
+		deviceCopy.on = !device.on
+		self.updateStateFor(device: deviceCopy)
 	}
 	
 	func checkStateForLocalDevices() {
@@ -170,9 +173,23 @@ class DeviceManager  {
 	}
 	
 	func startPolling() {
-		self.pollTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (timer) in
+		self.pollTimer = Timer.scheduledTimer(withTimeInterval: self.POLLRATE, repeats: true, block: { (timer) in
+			self.pollTimeoutTimer = Timer.scheduledTimer(timeInterval: self.POLLRATE + 1, target: self, selector: #selector(self.pollingTimedout), userInfo: nil, repeats: false)
 			self.checkStateForLocalDevices()
 		})
+	}
+	
+	func stopPolling() {
+		self.pollTimer?.invalidate()
+	}
+	
+	@objc func pollingTimedout() {
+		for device in self.devices {
+			device.isConnected = false
+		}
+		self.stopPolling()
+		self.delegate?.pollingDidTimeout(sender: self)
+		
 	}
 	
 }
@@ -196,6 +213,7 @@ extension DeviceManager : MessageManagerDelegate {
 			self.sendDeviceToDelegate(dict: dict)
 		}
 		if let arr = message["result"] as? [[String : Any]] {
+			self.pollTimeoutTimer?.invalidate()
 			for dict in arr {
 				self.sendDeviceToDelegate(dict: dict)
 			}
@@ -215,6 +233,7 @@ extension DeviceManager : MessageManagerDelegate {
 			if device.on == on && device.brightness == brightness && device.color == color && device.isConnected {
 				shouldUpdate = false
 			}
+			device.isUpdating = false
 			device.on = on
 			device.isConnected = true
 			device.brightness = brightness

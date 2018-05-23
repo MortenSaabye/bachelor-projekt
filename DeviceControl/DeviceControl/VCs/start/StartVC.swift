@@ -16,11 +16,10 @@ class StartVC: UIViewController  {
 	override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Device Control"
-        // Do any additional setup after loading the view.
         let setupBtn: UIBarButtonItem = UIBarButtonItem(title: "Setup", style: .plain, target: self, action: #selector(self.launchSetup))
         self.navigationItem.rightBarButtonItem = setupBtn
-        let allServiceBtn: UIBarButtonItem = UIBarButtonItem(title: "Add device", style: .plain, target: self, action: #selector(self.addDevice))
-        self.navigationItem.leftBarButtonItem = allServiceBtn
+		let addDevices: UIBarButtonItem = UIBarButtonItem(title: "Add device", style: .plain, target: self, action: #selector(self.addDevice))
+		self.navigationItem.leftBarButtonItem = addDevices
 		self.deviceCollectionView.register(UINib(nibName: "DeviceCell", bundle: nil), forCellWithReuseIdentifier: DEVICE_CELL_IDENTIFIER)
 		self.deviceCollectionView.register(UINib(nibName: "FooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: FOOTER_VIEW_IDENTIFIER)
 		self.deviceCollectionView.delegate = self
@@ -37,6 +36,7 @@ class StartVC: UIViewController  {
 		} else {
 			self.deviceCollectionView.isHidden = false
 			self.messageView.isHidden = true
+			DeviceManager.shared.startPolling()
 		}
 		self.deviceCollectionView.reloadData()
 	}
@@ -44,6 +44,7 @@ class StartVC: UIViewController  {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		DeviceManager.shared.delegate = nil
+		DeviceManager.shared.stopPolling()
 	}
 
     override func didReceiveMemoryWarning() {
@@ -75,6 +76,19 @@ extension StartVC: DeviceManagerDelegate {
 		let indexPath = IndexPath(item: index, section: 0)
 		self.deviceCollectionView.reloadItems(at: [indexPath])
 	}
+	
+	func pollingDidTimeout(sender: DeviceManager) {
+		self.deviceCollectionView.reloadData()
+		let alert = UIAlertController(title: "An error occured", message: "Could not find the devices", preferredStyle: .alert)
+		let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+		let reconnectAction = UIAlertAction(title: "Reconnect", style: .default) { (action) in
+			MessageManager.reconnect()
+		}
+		alert.addAction(okAction)
+		alert.addAction(reconnectAction)
+		self.present(alert, animated: true)
+	}
+
 }
 
 extension StartVC: DeviceCellDelegate {
@@ -97,7 +111,6 @@ extension StartVC: UICollectionViewDataSource, UICollectionViewDelegate, UIColle
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		//let device = DeviceManager.shared.devices[indexPath.row]
 		let width = self.view.frame.width - 30
 		let height: CGFloat = 150
 
@@ -106,6 +119,7 @@ extension StartVC: UICollectionViewDataSource, UICollectionViewDelegate, UIColle
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let device = DeviceManager.shared.devices[indexPath.row]
+		device.isUpdating = true
 		DeviceManager.shared.toggle(device: device)
 		self.deviceCollectionView.reloadItems(at: [indexPath])
 	}

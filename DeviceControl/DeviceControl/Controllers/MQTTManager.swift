@@ -43,6 +43,7 @@ class MQTTManager : MessageManager {
 			self.client?.allowUntrustCACertificate = true
 			self.client?.enableSSL = true
 			self.client?.willMessage = CocoaMQTTWill(topic: "/will", message: "dieout")
+			self.client?.autoReconnect = true
 			self.client?.connect()
 		}
 	}
@@ -190,7 +191,7 @@ extension MQTTManager : CocoaMQTTDelegate {
 	}
 	
 	func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
-		print("mqtt did disconnect \(err)")
+		print("mqtt did disconnect")
 	}
 
 }

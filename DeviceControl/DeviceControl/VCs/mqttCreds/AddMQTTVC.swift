@@ -35,7 +35,6 @@ class AddMQTTVC: UIViewController, MqttCredDelegate, UITextFieldDelegate {
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		MQTTManager.shared.loadServerInfo()
 	}
 	@IBAction func submitAction(_ sender: Any) {
 		self.submitButton.isEnabled = false
@@ -54,7 +53,7 @@ class AddMQTTVC: UIViewController, MqttCredDelegate, UITextFieldDelegate {
 	
 	func addedMQTTCreds(sender: MQTTManager, success: Bool, done: Bool) {
 		if success && done {
-			self.dismissView()
+			MQTTManager.shared.delegate = self
 			MQTTManager.shared.loadServerInfo()
 		} else if success && !done {
 			print("Added one")
@@ -75,5 +74,15 @@ class AddMQTTVC: UIViewController, MqttCredDelegate, UITextFieldDelegate {
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		textField.resignFirstResponder()
 		return true
+	}
+}
+
+extension AddMQTTVC: MessageManagerDelegate {
+	func didReceiveMessage(message: [String : Any], sender: MessageManager) {
+		print("messages should not received here.")
+	}
+	
+	func clientDidConnect(sender: MessageManager) {
+		self.dismissView()
 	}
 }
