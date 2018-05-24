@@ -160,7 +160,13 @@ extension DeviceSetupVC : WiFiDelegate {
 		self.removeSpinner()
 		let action: UIAlertAction
 		if success {
-			alertVC = UIAlertController(title: "Success", message: "Your device connected to the WiFi", preferredStyle: .alert)
+			var title: String?
+			var message: String?
+			if error == "1005" {
+				title = "Connection lost"
+				message = "Check if your device connected otherwise, try again."
+			}
+			alertVC = UIAlertController(title: title ?? "Success", message: message ?? "Your device connected to the WiFi", preferredStyle: .alert)
 			
 			action = UIAlertAction(title: "OK", style: .default) { (_) in
 				self.dismiss(animated: true)

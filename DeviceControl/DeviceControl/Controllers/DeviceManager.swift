@@ -18,6 +18,7 @@ protocol DeviceManagerDelegate {
 	func didUpdateDevice(device: Device, index: Int, sender: DeviceManager)
 	func didRemoveDevice(at index: Int, sender: DeviceManager)
 	func pollingDidTimeout(sender: DeviceManager)
+	func messageWasDenied(sender: DeviceManager)
 }
 
 class DeviceManager  {
@@ -195,8 +196,14 @@ class DeviceManager  {
 }
 
 extension DeviceManager : MessageManagerDelegate {
+	func messageRequestDenied(sender: MessageManager) {
+		self.delegate?.messageWasDenied(sender: self)
+		self.stopPolling()
+	}
+	
 	func clientDidConnect(sender: MessageManager) {
 		self.checkStateForLocalDevices()
+		self.startPolling()
 	}
 	
 	func didReceiveMessage(message: [String : Any], sender: MessageManager) {
@@ -219,8 +226,6 @@ extension DeviceManager : MessageManagerDelegate {
 			}
 		}
 	}
-	
-	
 
 	func sendDeviceToDelegate(dict: [String: Any]) {
 		if let id = dict["id"] as? Int,

@@ -24,7 +24,6 @@ class AddMQTTVC: UIViewController, MqttCredDelegate, UITextFieldDelegate {
 		
 		if let mqttserver = MQTTManager.shared.server {
 			self.userTextfield.text = mqttserver.user
-			self.passwordTextField.text = mqttserver.password
 		}
     }
 
@@ -54,6 +53,7 @@ class AddMQTTVC: UIViewController, MqttCredDelegate, UITextFieldDelegate {
 	func addedMQTTCreds(sender: MQTTManager, success: Bool, done: Bool) {
 		if success && done {
 			MQTTManager.shared.delegate = self
+			MQTTManager.shared.logIn()
 			MQTTManager.shared.loadServerInfo()
 		} else if success && !done {
 			print("Added one")
@@ -78,6 +78,10 @@ class AddMQTTVC: UIViewController, MqttCredDelegate, UITextFieldDelegate {
 }
 
 extension AddMQTTVC: MessageManagerDelegate {
+	func messageRequestDenied(sender: MessageManager) {
+		print("No thanks")
+	}
+	
 	func didReceiveMessage(message: [String : Any], sender: MessageManager) {
 		print("messages should not received here.")
 	}

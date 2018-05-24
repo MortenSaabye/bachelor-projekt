@@ -21,6 +21,8 @@ class MQTTManager : MessageManager {
 	var server: MQTTServer?
 	var client: CocoaMQTT?
 	
+	var isLoggedIn: Bool = false
+	
 	func loadServerInfo() {
 		do {
 			let fileToGet = try self.getFileUrl()
@@ -32,6 +34,9 @@ class MQTTManager : MessageManager {
 			self.server = server
 		} catch {
 			print(error)
+		}
+		guard isLoggedIn else {
+			return
 		}
 		if let mqttServer = self.server {
 			let clientID = "CocoaMQTT-" + String(ProcessInfo().processIdentifier)
@@ -46,6 +51,30 @@ class MQTTManager : MessageManager {
 			self.client?.autoReconnect = true
 			self.client?.connect()
 		}
+	}
+	
+	func logIn() {
+		self.isLoggedIn = true
+	}
+	
+	func logIn(password: String?, result: @escaping (Bool) -> ()) {
+		if password == self.server?.password {
+			self.logIn()
+			result(true)
+			return
+		}
+		result(false)
+	}
+	
+	func checkStatus() -> Bool {
+		if !isLoggedIn {
+			self.delegate?.messageRequestDenied(sender: self)
+			return false
+		} else if self.client == nil {
+			self.loadServerInfo()
+			return false
+		}
+		return true
 	}
 	
 	func subscribeToLocalDevices() {
@@ -101,7 +130,7 @@ class MQTTManager : MessageManager {
 	}
 	
 	override func sendMessage(with payload: [String : Any], to host: Host, path pathComponent: String, confirmable: Bool = true) {
-		guard let data = self.getJSONDataFrom(dict: payload) else {
+		guard let data = self.getJSONDataFrom(dict: payload), self.checkStatus() else {
 			print("Could not get data MQTT")
 			return
 		}
@@ -110,6 +139,9 @@ class MQTTManager : MessageManager {
 	}
 	
 	override func sendMessage(with payload: Any, to host: Host, path pathComponent: String) {
+		guard self.checkStatus() else {
+			return
+		}
 		if let data = "\(payload)".data(using: .utf8) {
 			let message = CocoaMQTTMessage(topic: pathComponent, payload: [UInt8](data))
 			self.client?.publish(message)
@@ -117,6 +149,9 @@ class MQTTManager : MessageManager {
 	}
 	
 	override func sendMessage(to host: Host, path pathComponent: String) {
+		guard self.checkStatus() else {
+			return
+		}
 		let message = CocoaMQTTMessage(topic: pathComponent, string: "")
 		self.client?.publish(message)
 	}
@@ -191,7 +226,7 @@ extension MQTTManager : CocoaMQTTDelegate {
 	}
 	
 	func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
-		print("mqtt did disconnect")
+		print("mqtt did disconnect with error: \(err)")
 	}
 
 }

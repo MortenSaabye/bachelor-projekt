@@ -21,6 +21,8 @@ class AddDevicesTVC: UITableViewController {
         super.viewDidLoad()
 		self.title = "Add devices"
 		self.tableView.register(UINib(nibName: "AddDeviceCell", bundle: nil), forCellReuseIdentifier: ADD_DEVICE_CELL_IDENTIFIER)
+		let closeBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.closeDeviceBrowser))
+		self.navigationItem.rightBarButtonItem = closeBtn
 		if let service = self.service {
 			DeviceManager.shared.fetchDevicesFromService(service: service)
 			DeviceManager.shared.addDevicesDelegate = self
@@ -31,6 +33,11 @@ class AddDevicesTVC: UITableViewController {
 		super.viewWillDisappear(animated)
 		DeviceManager.shared.saveDevices()
 		DeviceManager.shared.addDevicesDelegate = nil
+	}
+	
+	
+	@objc func closeDeviceBrowser() {
+		self.dismiss(animated: true, completion: nil)
 	}
 
     override func didReceiveMemoryWarning() {

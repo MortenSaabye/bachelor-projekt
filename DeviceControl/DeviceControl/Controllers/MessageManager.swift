@@ -10,6 +10,7 @@ import Foundation
 
 protocol MessageManagerDelegate {
 	func didReceiveMessage(message: [String : Any], sender: MessageManager)
+	func messageRequestDenied(sender: MessageManager)
 	func clientDidConnect(sender: MessageManager)
 }
 

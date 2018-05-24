@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 class StartVC: UIViewController  {
 	@IBOutlet weak var deviceCollectionView: UICollectionView!
@@ -24,7 +25,11 @@ class StartVC: UIViewController  {
 		self.deviceCollectionView.register(UINib(nibName: "FooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: FOOTER_VIEW_IDENTIFIER)
 		self.deviceCollectionView.delegate = self
 		self.deviceCollectionView.dataSource = self
-	
+		if !WiFiManager.shared.isAtHome {
+			self.authenticate()
+		} else {
+			DeviceManager.shared.startPolling()
+		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -36,7 +41,6 @@ class StartVC: UIViewController  {
 		} else {
 			self.deviceCollectionView.isHidden = false
 			self.messageView.isHidden = true
-			DeviceManager.shared.startPolling()
 		}
 		self.deviceCollectionView.reloadData()
 	}
@@ -66,6 +70,62 @@ class StartVC: UIViewController  {
 }
 
 extension StartVC: DeviceManagerDelegate {
+	func messageWasDenied(sender: DeviceManager) {
+		self.authenticate()
+	}
+	
+	func authenticate() {
+		if MQTTManager.shared.server == nil {
+			let alert = UIAlertController(title: "No user", message: "You need to create a user to use Device Control remotely. Tap 'Manage remote control' to set up", preferredStyle: .alert)
+			let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+			alert.addAction(okAction)
+			self.present(alert, animated: true)
+			return
+		}
+		let myContext = LAContext()
+		var authError: NSError?
+		
+		let myReasonString = "You need to log in to use Device Control remotely"
+		
+		if myContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
+			[myContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: myReasonString, reply: { (success: Bool, evalPolicyError: Error?) in
+				if success {
+					MQTTManager.shared.logIn()
+					MQTTManager.shared.loadServerInfo()
+				} else {
+					self.showPasswordBox()
+				}
+			})]
+		} else{
+			print(authError as Any)
+		}
+	}
+	
+	func showPasswordBox() {
+		let pwAlert = UIAlertController(title: "Type your password", message: "", preferredStyle: .alert)
+		pwAlert.addTextField(configurationHandler: { (textField) in
+			textField.placeholder = "Password"
+			textField.isSecureTextEntry = true
+		})
+
+		let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+			guard let textField = pwAlert.textFields?.first else {
+				return
+			}
+			MQTTManager.shared.logIn(password: textField.text, result: {(success) in
+				if success {
+					MQTTManager.shared.loadServerInfo()
+				} else {
+					self.showPasswordBox()
+				}
+			})
+		}
+		let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+		pwAlert.addAction(okAction)
+		pwAlert.addAction(cancelAction)
+		self.present(pwAlert, animated: true)
+	}
+	
 	func didRemoveDevice(at index: Int, sender: DeviceManager) {
 		let indexPath = IndexPath(item: index, section: 0)
 		self.deviceCollectionView.deleteItems(at: [indexPath])
@@ -144,8 +204,6 @@ extension StartVC: FooterDelegate {
 		let navVC = UINavigationController(rootViewController: mqttVC)
 		self.present(navVC, animated: true, completion: nil)
 	}
-	
-	
 }
 
 

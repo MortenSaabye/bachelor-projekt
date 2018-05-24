@@ -97,6 +97,7 @@ class WiFiManager {
             }
 			var success: Bool = false
 			var error: String = ""
+			print(response.result)
 			if let JSONValue = response.result.value as? [String: Any],
 				let reqSuccess = JSONValue["success"] as? Bool,
 				let errorString = JSONValue["errormessage"] as? String {
@@ -106,6 +107,7 @@ class WiFiManager {
 			
 			if !success && response.error.debugDescription.range(of: "Code=-1005") != nil {
 				success = true
+				error = "1005"
 			}
 			safeSelf.delegate?.didConnectToNetwork(sender: safeSelf, success: success, error: error)
         }
